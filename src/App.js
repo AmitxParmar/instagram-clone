@@ -11,7 +11,7 @@ const App = () => {
 
         <React.Fragment>
             <span className={classes}> {formattedCount} </span>
-            <button className="btn btn-secondary btn-sm" onClick={()=>setCount(prevCount => prevCount + 1)}>Increament</button>
+            <button className="btn btn-secondary btn-sm" onClick={()=>setCount(prevCount => prevCount + 1)}>Increment</button>
         </React.Fragment>
     );
     function formatCount(count) {
