@@ -1,5 +1,6 @@
 // NOTE: replace "userId" with your firebase authentication userId (    can be taken from firebase)
 
+    
 export function seedDatabase(firebase) {
     const users = [
         {
@@ -7,8 +8,8 @@ export function seedDatabase(firebase) {
             userName: 'Amit',
             fullName: 'Amit Parmar',
             emailAddress: 'amitparmar901@gmail.com',
-            following: ['2'],
-            followers: ['2', '3', '4'],
+            following: [],
+            followers: ['2', '3'],
             dateCreated: Date.now()
         },
         {
@@ -16,8 +17,8 @@ export function seedDatabase(firebase) {
             userName: 'raphel',
             fullName: 'Raffello Sanzio',
             emailAddress: 'raphel@sanzio.com',
-            following: [],
-            followers: ['saodmasodmasomdpsmd'],
+            following: ['ZHuJJT1PNiUXrX71NAQtLjXlf7G2'],
+            followers: [],
             dateCreated: Date.now()
         },
         {
@@ -25,7 +26,7 @@ export function seedDatabase(firebase) {
             userName: 'dali',
             fullName: 'Salvador Dali',
             emailAddress: 'salvador@dali.com',
-            following: ['2'],
+            following: ['ZHuJJT1PNiUXrX71NAQtLjXlf7G2'],
             followers: ['saodmasodmasomdpsmd'],
             dateCreated: Date.now()
         },
