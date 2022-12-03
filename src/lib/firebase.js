@@ -1,8 +1,8 @@
-import Firebase, { initializeApp } from 'firebase/app';
-import "firebase/firestore";
-import "firebase/auth"
+import Firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
-// Here i want to import the seed file
+// Here I want to import the seed file
 
 const config = {
     apiKey: "AIzaSyCSp7O6sOSPupUf4QdRj2Jge8racS4E9SY",
@@ -15,7 +15,7 @@ const config = {
 
 const firebase = Firebase.initializeApp(config);
 const { FieldValue } = Firebase.firestore;
-
 // Here is where I want to call the seed file (only ONCE!)
+console.log("firebase", firebase);
 
-export { FieldValue, firebase };
+export { firebase, FieldValue };
