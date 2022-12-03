@@ -1,5 +1,5 @@
 {
-  "name": "Instagram-clone",
+  "name": "Instagram-Clone",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,7 +12,6 @@
     "@types/react-dom": "^18.0.8",
     "autoprefixer": "^10.4.13",
     "bootstrap": "^5.2.2",
-    "enzyme": "^3.11.0",
     "firebase": "^9.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
