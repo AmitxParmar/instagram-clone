@@ -1,9 +1,8 @@
- import React, { useState } from 'react';
+import React, { useState } from 'react';
 /* import './App.css'; */
 const App = () => {
 
     const [count, setCount] = useState(0);
-
 
     const classes = getBadgesClasses(count);
     const formattedCount = formatCount(count);
@@ -11,7 +10,7 @@ const App = () => {
 
         <React.Fragment>
             <span className={classes}> {formattedCount} </span>
-            <button className="btn btn-secondary btn-sm" onClick={()=>setCount(prevCount => prevCount + 1)}>Increment</button>
+            <button className="btn btn-secondary btn-sm" onClick={() => setCount(prevCount => prevCount + 1)}>Increment</button>
         </React.Fragment>
     );
     function formatCount(count) {
@@ -23,4 +22,5 @@ const App = () => {
         return classes;
     }
 };
+console.log("just a test to check the font size")
 export default App;
