@@ -1,7 +1,7 @@
-import Firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-import { seedDatabase } from '../seed';
+import firebase from 'firebase/compat/app';
+import '@firebase/auth-compat';
+import '@firebase/firestore-compat';
+/*  import { seedDatabase } from '../seed';*/
 // Here I want to import the seed file
 
 const config = {
@@ -13,10 +13,11 @@ const config = {
     appId: "1:441885107855:web:0dd22114d71932989d32fa"
 };
 
-const firebase = Firebase.initializeApp(config);
-const { FieldValue } = firebase.firestore();
+const firebaseApp = firebase.initializeApp(config);
+const { FieldValue } = firebase.firestore(firebaseApp);
+
 
 // Here is where I want to call the seed file (only ONCE!)
 
 //seedDatabase(firebase);
-export { firebase, FieldValue };
+export { firebaseApp, FieldValue };
