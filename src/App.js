@@ -1,14 +1,17 @@
 import { lazy, Suspense } from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-const Login = lazy(()=> import('./pages/login'));
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import * as ROUTES from './constants/routes';
+import Layout from './components/Layout';
+const Login = lazy(() => import('./pages/login'));
 
-const App = (props) =>{
+const App = (props) => {
     return (
         <Router>
             <Suspense fallback={<p>Loading....</p>}>
-                <Switch>
-                    <Route path='/login' component={Login} />
-                </Switch>
+                <Routes>
+                    <Route exact path='/' component={<Layout />} />
+                    <Route path={ROUTES.LOGIN} component={<Login />} />
+                </Routes>
             </Suspense>
         </Router>
     )
