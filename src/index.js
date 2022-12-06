@@ -2,10 +2,11 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import FirebaseContext from './context/firebase'
-import { firebaseApp, FieldValue } from "./lib/Firebase"
+import { firebaseApp, FieldValue } from "./lib/firebase"
 import "./styles/main.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
     <FirebaseContext.Provider value={{ firebaseApp, FieldValue }}>
         <StrictMode>

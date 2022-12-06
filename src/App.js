@@ -1,21 +1,21 @@
 import { lazy, Suspense } from 'react';
-import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as ROUTES from './constants/routes';
+import "./styles/main.css";
 /* import Layout from './components/Layout'; */
-const Login = lazy(() => import('./pages/Login'));
 
-const App = (props) => {
+const Login = lazy(() => import('./pages/login'));
+
+const App = () => {
     return (
         <Router>
             <Suspense fallback={<p>Loading....</p>}>
                 <Routes>
-                    <Route exact path='/' />
-                    <Route path={ROUTES.LOGIN} component={<Login />} />
+                    <Route exact path="/" element={<Login />} />
                 </Routes>
             </Suspense>
         </Router>
-    )
+    );
 }
-
 
 export default App;

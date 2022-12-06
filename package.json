@@ -20,8 +20,8 @@
 
   },
   "scripts": {
-    "build:css": "postcss src/input.css -o dist/output.css",
-    "watch:css": "postcss src/input.css -o dist/output.css --watch",
+    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
+    "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css --watch",
     "react-scripts:start": "sleep 5 && react-scripts start",
     "start": "run-p watch:css react-scripts:start",
     "build": "run-s build:css react-scripts:build",
