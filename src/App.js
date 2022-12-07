@@ -5,13 +5,17 @@ import * as ROUTES from './constants/routes';
 /* import Layout from './components/Layout'; */
 
 const Login = lazy(() => import('./pages/login.js'));
+const SignUp = lazy(() => import('./pages/signup.js'));
 
 const App = () => {
     return (
         <Router>
             <Suspense fallback={<p>Loading....</p>}>
                 <Routes>
-                    <Route exact path={ROUTES.DASHBOARD} element={<Login />} />
+                    <Route path='/' />
+                    <Route path={ROUTES.LOGIN} element={<Login />} />
+                    <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
+                    <Route path="*" element={<p>Not found</p>} />
                 </Routes>
             </Suspense>
         </Router>
