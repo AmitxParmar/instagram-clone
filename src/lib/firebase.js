@@ -5,12 +5,12 @@ import 'firebase/compat/firestore';
 // Here I want to import the seed file
 
 const config = {
-    apiKey: "AIzaSyCSp7O6sOSPupUf4QdRj2Jge8racS4E9SY",
+    apiKey: process.env.FIREBASE_DB_KEY,
     authDomain: "instagram-clone-94434.firebaseapp.com",
     projectId: "instagram-clone-94434",
     storageBucket: "instagram-clone-94434.appspot.com",
-    messagingSenderId: "441885107855",
-    appId: "1:441885107855:web:0dd22114d71932989d32fa"
+    messagingSenderId: process.env.SENDER_ID,
+    appId: process.env.APP_ID
 };
 
 const firebaseApp = Firebase.initializeApp(config);

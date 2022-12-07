@@ -560,6 +560,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.bg-blue-medium {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 92 152 / var(--tw-bg-opacity));
+}
 .p-4 {
   padding: 1rem;
 }
@@ -593,6 +597,10 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.text-blue-medium {
+  --tw-text-opacity: 1;
+  color: rgb(0 92 152 / var(--tw-text-opacity));
 }
 .opacity-50 {
   opacity: 0.5;
