@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
 import FirebaseContext from "../context/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth } from "../lib/firebase"
 import * as ROUTES from "../constants/routes"
 
 const Login = () => {
     const { firebaseApp } = useContext(FirebaseContext);
     const navigate = useNavigate();
 
-    const [username, setUsername] = useState('');
-    const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -17,14 +17,15 @@ const Login = () => {
 
     const handleLogin = async (event) => {
         event.preventDefault();
-        /*    try {
-               await firebaseApp.auth().signInWithEmailAndPassword(email, password);
-               navigate(ROUTES.DASHBOARD);
-           } catch (error) {
-               setEmail('');
-               setPassword('');
-               setError(error.message);
-           } */
+        try {
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            navigate(ROUTES.DASHBOARD)
+            console.log(result);
+        } catch (error) {
+            setEmail('');
+            setPassword('');
+            setError(error.message)
+        }
     };
 
     useEffect(() => {

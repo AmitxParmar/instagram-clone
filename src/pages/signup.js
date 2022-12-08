@@ -2,6 +2,9 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
 import FirebaseContext from "../context/firebase";
 import * as ROUTES from "../constants/routes"
+import { auth } from "../lib/firebase"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+/* import { doesUserNameExist } from "../services/firebase"; */
 
 const SignUp = () => {
     const { firebaseApp } = useContext(FirebaseContext);
@@ -17,10 +20,36 @@ const SignUp = () => {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
+
         try {
-
+            const result = await createUserWithEmailAndPassword(auth, email, password);
+            console.log("result of signup createUser: " + result)
         } catch (error) {
-
+            setUserName('');
+            setFullName('');
+            setEmail('');
+            setPassword('');
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    setError(`Email address ${email} already in use.`);
+                    console.log(`Email address ${email} already in use.`);
+                    break;
+                case 'auth/invalid-email':
+                    setError(`Email address ${email} is invalid.`);
+                    console.log(`Email address ${email} is invalid.`);
+                    break;
+                case 'auth/operation-not-allowed':
+                    setError(`Error during sign up.`);
+                    console.log(`Error during sign up.`);
+                    break;
+                case 'auth/weak-password':
+                    setError('Password is not strong enough. Add additional characters including special characters and numbers.');
+                    console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+                    break;
+                default:
+                    console.log(error.message);
+                    break;
+            }
         }
     };
 

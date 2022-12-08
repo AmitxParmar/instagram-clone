@@ -1,6 +1,6 @@
 // NOTE: replace "userId" with your firebase authentication userId (    can be taken from firebase)
 
-    
+
 export function seedDatabase(firebase) {
     const users = [
         {
@@ -61,6 +61,6 @@ export function seedDatabase(firebase) {
                 userLongitude: '74.0060°',
                 dateCreated: Date.now()
             }
-        );
+            );
     }
 }
