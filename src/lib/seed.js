@@ -1,11 +1,13 @@
-// NOTE: replace "userId" with your firebase authentication userId (    can be taken from firebase)
+/* import { db } from "./lib/firebase"; */
+//import { db, collection, addDoc, setDoc } from "./firebase-config";
 
 
-export function seedDatabase(firebase) {
+// NOTE: replace "userId" with your firebase authentication userId (can be taken from firebase)
+async function seedDatabase(db) {
     const users = [
         {
             userId: 'ZHuJJT1PNiUXrX71NAQtLjXlf7G2',
-            userName: 'Amit',
+            userName: 'amitxparmar',
             fullName: 'Amit Parmar',
             emailAddress: 'amitparmar901@gmail.com',
             following: [],
@@ -14,7 +16,7 @@ export function seedDatabase(firebase) {
         },
         {
             userId: '2',
-            userName: 'raphel',
+            userName: 'Raphel',
             fullName: 'Raffello Sanzio',
             emailAddress: 'raphel@sanzio.com',
             following: ['ZHuJJT1PNiUXrX71NAQtLjXlf7G2'],
@@ -30,21 +32,22 @@ export function seedDatabase(firebase) {
             followers: ['saodmasodmasomdpsmd'],
             dateCreated: Date.now()
         },
-
     ];
-    //eslint-disable-next-line prefer-const
+    var usersRef = collection(db, "users");
+
     for (let k = 0; k < users.length; k++) {
-        firebase.firestore().collection('users').add(users[k]);
+        await addDoc(usersRef, users[k]);
+        console.log('seedingg users');
     }
-    // eslint-disable-next-line prefer-const
-    for (let i = 1; i <= 5; ++i) {
-        firebase()
-            .firebase()
-            .collection('photos')
-            .add({
+
+    var photoRef = collection(db, "photos");
+    try {
+        for (let i = 1; i <= 5; ++i) {
+            console.log('seedinng photos');
+            await addDoc(photoRef, {
                 photoId: i,
                 userId: '2',
-                imageSrc: `/images/users/raphel/${i}.jpg`,
+                imageSrc: `../images/users/raphael/${i}.jpg`,
                 caption: 'Saint george and the Dragon',
                 likes: [],
                 comments: [
@@ -60,7 +63,10 @@ export function seedDatabase(firebase) {
                 userLatitude: '40.7128°',
                 userLongitude: '74.0060°',
                 dateCreated: Date.now()
-            }
+            }, { merge: true }
             );
+        }
     }
+    catch (e) { console.log(e.message); }
 }
+export default seedDatabase;

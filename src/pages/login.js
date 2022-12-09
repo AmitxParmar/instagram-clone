@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
 import FirebaseContext from "../context/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../lib/firebase"
+import { auth } from "../lib/firebase-config"
 import * as ROUTES from "../constants/routes"
 
 const Login = () => {
@@ -18,9 +18,11 @@ const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const result = await signInWithEmailAndPassword(auth, email, password);
-            navigate(ROUTES.DASHBOARD)
-            console.log(result);
+            const result = await signInWithEmailAndPassword(auth, email, password)
+                .then((response) => {
+                    navigate(ROUTES.DASHBOARD)
+                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+                })
         } catch (error) {
             setEmail('');
             setPassword('');

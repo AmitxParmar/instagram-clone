@@ -1,13 +1,12 @@
-import { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
-import FirebaseContext from "../context/firebase";
+import { UserAuth } from "../context/AuthContext";
 import * as ROUTES from "../constants/routes"
-import { auth } from "../lib/firebase"
-import { createUserWithEmailAndPassword } from "firebase/auth"
-/* import { doesUserNameExist } from "../services/firebase"; */
+import { auth, db, collection, createUserWithEmailAndPassword, updateProfile, addDoc } from "../lib/firebase-config"
+//import { doesUserNameExist } from "../services/firebase";
 
 const SignUp = () => {
-    const { firebaseApp } = useContext(FirebaseContext);
+    //const { firebaseApp } = useContext(FirebaseContext);
     const navigate = useNavigate();
 
     const [userName, setUserName] = useState('');
@@ -18,38 +17,86 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
 
+    const { createUser } = UserAuth();
+
     const handleSignUp = async (event) => {
         event.preventDefault();
+        /* const userExistence = await doesUserNameExist(userName);
 
+        console.log("userContext" + userExistence); */
+        //   if (!userExistence.length) {
         try {
-            const result = await createUserWithEmailAndPassword(auth, email, password);
-            console.log("result of signup createUser: " + result)
+            await createUser(email, password)
+                .then((response) => {
+                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+                    console.log("Token Saved! " + response._tokenResponse.refreshToken)
+                })
+
+            /*  .then(async (userCredentials) => {
+               
+                    const { user } = await createUserWithEmailAndPassword(auth, email, password)
+                        .then(async (userCredential) => {
+                            await updateProfile(userCredential.user, {
+                                displayName: userName,
+                            }, user.uid)
+                        })
+                        .then((userCredential) => {
+                            alert(`userCredentials: ${userCredential.user}`)
+                        })
+    
+             }) */
+
+            /* console.log(`User ${JSON.stringify(user.displayName)} created first then`)
+            await updateProfile(user, {
+                displayName: userName,
+            }, user.uid)
+            console.log("User profile updated")
+    
+            await addDoc(collection(db, 'users'), {
+                userId: user.uid,
+                displayName: userName.toLowerCase(),
+                fullName: fullName.toLowerCase,
+                email: email.toLowerCase,
+                following: [],
+                dateCreated: Date.now()
+            }, user.uid)
+            console.log("navigating to dashboard.....upref ")
+            navigate(ROUTES.DASHBOARD)
         } catch (error) {
+            const errorCode = error.code;
             setUserName('');
             setFullName('');
             setEmail('');
             setPassword('');
             switch (error.code) {
                 case 'auth/email-already-in-use':
-                    setError(`Email address ${email} already in use.`);
-                    console.log(`Email address ${email} already in use.`);
+                    setError(`Email address ${email} already in use. ${errorCode}`);
+                    console.log(`Email address ${email} already in use. ${errorCode}`);
                     break;
                 case 'auth/invalid-email':
-                    setError(`Email address ${email} is invalid.`);
-                    console.log(`Email address ${email} is invalid.`);
+                    setError(`Email address ${email} is invalid. ${errorCode}`);
+                    console.log(`Email address ${email} is invalid. ${errorCode}`);
                     break;
                 case 'auth/operation-not-allowed':
-                    setError(`Error during sign up.`);
-                    console.log(`Error during sign up.`);
+                    setError(`Error during sign up. ${errorCode}`);
+                    console.log(`Error during sign up. ${errorCode}`);
                     break;
                 case 'auth/weak-password':
-                    setError('Password is not strong enough. Add additional characters including special characters and numbers.');
-                    console.log('Password is not strong enough. Add additional characters including special characters and numbers.');
+                    setError(`Password is not strong enough. Add additional characters including special characters and numbers. ${errorCode}`);
+                    console.log(`Password is not strong enough. Add additional characters including special characters and numbers.${errorCode}`);
                     break;
                 default:
-                    console.log(error.message);
+    
+    
+                    console.log(`${error.message} ${errorCode}`);
                     break;
             }
+        } */
+            //        } else {
+
+            //      }
+        } catch (e) {
+            setError(e.message);
         }
     };
 
@@ -72,16 +119,18 @@ const SignUp = () => {
 
                     <form onSubmit={handleSignUp} method="POST">
                         <input
-                            autoComplete="username"
+                            autoComplete="on"
                             aria-label="Enter your Username"
                             type="text"
                             placeholder="Username"
                             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
                             onChange={({ target }) => setUserName(target.value)}
+                            name="userName"
                             value={userName}
                         />
                         <input
-                            autoComplete="full-name"
+                            name="fullName"
+                            autoComplete="on"
                             aria-label="Enter your Full Name"
                             type="text"
                             placeholder="Full Name"
@@ -90,7 +139,8 @@ const SignUp = () => {
                             value={fullName}
                         />
                         <input
-                            autoComplete="email"
+                            name="email"
+                            autoComplete="on"
                             aria-label="Enter your email address"
                             type="text"
                             placeholder="Email address"
@@ -99,7 +149,8 @@ const SignUp = () => {
                             value={email}
                         />
                         <input
-                            autoComplete="user-password"
+                            name="password"
+                            autoComplete="on"
                             aria-label="Enter your password"
                             type="password"
                             placeholder="Password"

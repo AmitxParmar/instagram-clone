@@ -2,17 +2,17 @@ import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import FirebaseContext from './context/firebase'
-import { firebaseApp, FieldValue } from "./lib/firebase"
+import { app, FieldValue } from "./lib/firebase-config"
 import "./styles/main.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <FirebaseContext.Provider value={{ firebaseApp, FieldValue }}>
-        <StrictMode>
+    <StrictMode>
+        <FirebaseContext.Provider value={{ app, FieldValue }}>
             <App />
-        </StrictMode>
-    </FirebaseContext.Provider>
+        </FirebaseContext.Provider>
+    </StrictMode>
 );
 
 /* const names = [1, [33, 65, [666]], 3, 7, 7, 1];
