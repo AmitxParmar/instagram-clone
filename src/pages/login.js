@@ -1,9 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
-import FirebaseContext from "../context/firebase";
+import FirebaseContext from "../context/Firebase";
 import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../lib/firebase-config"
-import * as ROUTES from "../constants/routes"
+import { auth } from "../lib/FirebaseConfig"
+import * as ROUTES from "../constants/Routes"
 
 const Login = () => {
     const { firebaseApp } = useContext(FirebaseContext);

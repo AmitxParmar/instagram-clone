@@ -5,7 +5,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged
-} from "../lib/firebase-config"
+} from "../lib/FirebaseConfig"
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {

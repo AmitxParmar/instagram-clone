@@ -1,8 +1,8 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import FirebaseContext from './context/firebase'
-import { app, FieldValue } from "./lib/firebase-config"
+import FirebaseContext from './context/Firebase'
+import { app, FieldValue } from "./lib/FirebaseConfig"
 import "./styles/main.css"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

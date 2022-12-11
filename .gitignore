@@ -6,7 +6,10 @@
 /vscode
 /.pnp
 .pnp.js
-
+/FirebaseConfig.js
+FirebaseConfig.js
+/Private
+Private
 # testing
 /coverage
 

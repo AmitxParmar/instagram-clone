@@ -9,7 +9,7 @@ const config = {
     apiKey: ,
     authDomain: ,
     projectId: ,
-    storageBucket:, 
+    storageBucket:,
     messagingSenderId:,
     appId: ,
 };
@@ -22,4 +22,4 @@ const { FieldValue } = db;
 // Here is where I want to call the seed file (only ONCE!)
 
 //seedDatabase(firebase);
-export { firebaseApp, db, auth, FieldValue };
+/* export { firebaseApp, db, auth, FieldValue }; */

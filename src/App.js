@@ -1,12 +1,13 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import * as ROUTES from './constants/routes';
+import * as ROUTES from './constants/Routes';
 import { AuthContextProvider } from "./context/AuthContext"
 /* import Layout from './components/Layout'; */
 
-const Login = lazy(() => import('./pages/login.js'));
-const SignUp = lazy(() => import('./pages/signup.js'));
-const NotFound = lazy(() => import('./pages/not-found.js'));
+const Login = lazy(() => import('./pages/Login.js'));
+const SignUp = lazy(() => import('./pages/SignUp.js'));
+const NotFound = lazy(() => import('./pages/NotFound.js'));
+const Dashboard = lazy(() => import('./pages/Dashboard.js'));
 
 const App = () => {
     return (
@@ -14,9 +15,10 @@ const App = () => {
             <Router>
                 <Suspense fallback={<p>Loading....</p>}>
                     <Routes>
+                        <Route path="*" element={<NotFound />} />
                         <Route path='/' element={<Login />} />
                         <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-                        <Route path="*" element={<NotFound />} />
+                        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
                     </Routes>
                 </Suspense>
             </Router>

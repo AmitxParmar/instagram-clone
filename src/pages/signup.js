@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
+import * as ROUTES from "../constants/Routes"
+import { auth, db, collection, createUserWithEmailAndPassword, updateProfile, addDoc } from "../lib/FirebaseConfig"
+import { doesUserNameExist } from "../services/Firebase";
 import { UserAuth } from "../context/AuthContext";
-import * as ROUTES from "../constants/routes"
-import { auth, db, collection, createUserWithEmailAndPassword, updateProfile, addDoc } from "../lib/firebase-config"
-//import { doesUserNameExist } from "../services/firebase";
 
 const SignUp = () => {
     //const { firebaseApp } = useContext(FirebaseContext);
@@ -21,82 +21,67 @@ const SignUp = () => {
 
     const handleSignUp = async (event) => {
         event.preventDefault();
-        /* const userExistence = await doesUserNameExist(userName);
+        const userExists = await doesUserNameExist(userName);
 
-        console.log("userContext" + userExistence); */
-        //   if (!userExistence.length) {
-        try {
-            await createUser(email, password)
-                .then((response) => {
-                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
-                    console.log("Token Saved! " + response._tokenResponse.refreshToken)
-                })
-
-            /*  .then(async (userCredentials) => {
-               
-                    const { user } = await createUserWithEmailAndPassword(auth, email, password)
-                        .then(async (userCredential) => {
-                            await updateProfile(userCredential.user, {
-                                displayName: userName,
-                            }, user.uid)
+        console.log("userExist? " + Boolean(!userExists));
+        if (!userExists) { // Run the function if the name exists in database
+            try {
+                await createUser(email, password)
+                    .then(async (response) => {
+                        sessionStorage.setItem('Auth-Token', response._tokenResponse.refreshToken)
+                        console.log("Token Saved! " + response._tokenResponse.refreshToken)
+                        await updateProfile(response.user, {
+                            displayName: userName,
                         })
-                        .then((userCredential) => {
-                            alert(`userCredentials: ${userCredential.user}`)
+                        console.log("updateProfileDone!")
+                        await addDoc(collection(db, 'users'), {
+                            userId: response.user.uid,
+                            displayName: userName.toLowerCase(),
+                            fullName: fullName.toLowerCase(),
+                            email: email,
+                            following: [],
+                            dateCreated: Date.now()
                         })
-    
-             }) */
-
-            /* console.log(`User ${JSON.stringify(user.displayName)} created first then`)
-            await updateProfile(user, {
-                displayName: userName,
-            }, user.uid)
-            console.log("User profile updated")
-    
-            await addDoc(collection(db, 'users'), {
-                userId: user.uid,
-                displayName: userName.toLowerCase(),
-                fullName: fullName.toLowerCase,
-                email: email.toLowerCase,
-                following: [],
-                dateCreated: Date.now()
-            }, user.uid)
-            console.log("navigating to dashboard.....upref ")
-            navigate(ROUTES.DASHBOARD)
-        } catch (error) {
-            const errorCode = error.code;
-            setUserName('');
-            setFullName('');
-            setEmail('');
-            setPassword('');
-            switch (error.code) {
-                case 'auth/email-already-in-use':
-                    setError(`Email address ${email} already in use. ${errorCode}`);
-                    console.log(`Email address ${email} already in use. ${errorCode}`);
-                    break;
-                case 'auth/invalid-email':
-                    setError(`Email address ${email} is invalid. ${errorCode}`);
-                    console.log(`Email address ${email} is invalid. ${errorCode}`);
-                    break;
-                case 'auth/operation-not-allowed':
-                    setError(`Error during sign up. ${errorCode}`);
-                    console.log(`Error during sign up. ${errorCode}`);
-                    break;
-                case 'auth/weak-password':
-                    setError(`Password is not strong enough. Add additional characters including special characters and numbers. ${errorCode}`);
-                    console.log(`Password is not strong enough. Add additional characters including special characters and numbers.${errorCode}`);
-                    break;
-                default:
-    
-    
-                    console.log(`${error.message} ${errorCode}`);
-                    break;
+                        console.log("navigating to dashboard.... ")
+                        navigate(ROUTES.DASHBOARD)
+                    })
+                    .then(async (data) => {
+                        alert("data updated!")
+                        console.log("data added to database");
+                        console.log("Logged in");
+                    })
             }
-        } */
-            //        } else {
-
-            //      }
-        } catch (e) {
-            setError(e.message);
+            catch (error) {
+                const errorCode = error.code;
+                setUserName('');
+                setFullName('');
+                setEmail('');
+                setPassword('');
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        setError(`Email address ${email} already in use. ${errorCode}`);
+                        console.log(`Email address ${email} already in use. ${errorCode}`);
+                        break;
+                    case 'auth/invalid-email':
+                        setError(`Email address ${email} is invalid. ${errorCode}`);
+                        console.log(`Email address ${email} is invalid. ${errorCode}`);
+                        break;
+                    case 'auth/operation-not-allowed':
+                        setError(`Error during sign up. ${errorCode}`);
+                        console.log(`Error during sign up. ${errorCode}`);
+                        break;
+                    case 'auth/weak-password':
+                        setError(`Password is not strong enough. Add additional characters including special characters and numbers. ${errorCode}`);
+                        console.log(`Password is not strong enough. Add additional characters including special characters and numbers.${errorCode}`);
+                        break;
+                    default:
+                        console.log(`${error.message} ${errorCode}`);
+                        break;
+                }
+            }
+        } else {
+            setError("user name is already taken")
+            console.log("else block");
         }
     };
 
@@ -182,3 +167,35 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
+
+
+/*  
+======================================= The Code Didn't Work ==============================================
+
+.then(async (userCredentials) => {
+                       const { user } = await createUserWithEmailAndPassword(auth, email, password)
+                           .then(async (userCredential) => {
+                               
+                           })
+                           .then((userCredential) => {
+                               alert(`userCredentials: ${userCredential.user}`)
+                           })
+                }) */
+/* console.log(`User ${JSON.stringify(user.displayName)} created first then`)
+await updateProfile(user, {
+    displayName: userName,
+}, user.uid)
+console.log("User profile updated")
+
+await addDoc(collection(db, 'users'), {
+    userId: user.uid,
+    displayName: userName.toLowerCase(),
+    fullName: fullName.toLowerCase,
+    email: email.toLowerCase,
+    following: [],
+    dateCreated: Date.now()
+}, user.uid)
+console.log("navigating to dashboard.... ")
+navigate(ROUTES.DASHBOARD)
+}*/ 
