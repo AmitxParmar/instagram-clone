@@ -1,12 +1,10 @@
 import { useState, useContext, useEffect } from "react";
-import { useNavigate, Link } from 'react-router-dom'
-import FirebaseContext from "../context/Firebase";
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "../lib/FirebaseConfig"
-import * as ROUTES from "../constants/Routes"
+import { useNavigate, Link } from 'react-router-dom';
+import * as ROUTES from "../constants/Routes";
+import { UserAuth } from "../context/AuthContext";
 
 const Login = () => {
-    const { firebaseApp } = useContext(FirebaseContext);
+    const { login } = UserAuth();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -18,15 +16,40 @@ const Login = () => {
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const result = await signInWithEmailAndPassword(auth, email, password)
+            const result = await login(email, password)
                 .then((response) => {
                     navigate(ROUTES.DASHBOARD)
                     sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
                 })
         } catch (error) {
+            const errorCode = error.code;
             setEmail('');
             setPassword('');
-            setError(error.message)
+            switch (error.code) {
+                case 'auth/email-already-in-use':
+                    setError(`Email address ${email} already in use.`);
+                    console.log(`Email address ${email} already in use. ${errorCode}`);
+                    break;
+                case 'auth/invalid-email':
+                    setError(`Email address ${email} is invalid.`);
+                    console.log(`Email address ${email} is invalid. ${errorCode}`);
+                    break;
+                case 'auth/operation-not-allowed':
+                    setError(`Error during sign up.`);
+                    console.log(`Error during sign up. ${errorCode}`);
+                    break;
+                case 'auth/weak-password':
+                    setError(`Password is not strong enough. Add additional characters including special characters and numbers.`);
+                    console.log(`Password is not strong enough. Add additional characters including special characters and numbers.${errorCode}`);
+                    break;
+                case 'auth/wrong-password':
+                    setError(`Wrong Email or Password.`);
+                    console.log(`Wrong Email or Password. ${errorCode}`);
+                    break;
+                default:
+                    console.log(`${error.message} ${errorCode}`);
+                    break;
+            }
         }
     };
 

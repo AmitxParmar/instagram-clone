@@ -24,31 +24,36 @@ const SignUp = () => {
         const userExists = await doesUserNameExist(userName);
 
         console.log("userExist? " + Boolean(!userExists));
-        if (!userExists) { // Run the function if the name exists in database
+        if (!userExists) { // Run the function if the name  doesn't exists in database
             try {
-                await createUser(email, password)
+                const createdUser = await createUser(email, password)
                     .then(async (response) => {
-                        sessionStorage.setItem('Auth-Token', response._tokenResponse.refreshToken)
-                        console.log("Token Saved! " + response._tokenResponse.refreshToken)
-                        await updateProfile(response.user, {
-                            displayName: userName,
-                        })
-                        console.log("updateProfileDone!")
-                        await addDoc(collection(db, 'users'), {
-                            userId: response.user.uid,
-                            displayName: userName.toLowerCase(),
-                            fullName: fullName.toLowerCase(),
-                            email: email,
-                            following: [],
-                            dateCreated: Date.now()
-                        })
-                        console.log("navigating to dashboard.... ")
-                        navigate(ROUTES.DASHBOARD)
-                    })
-                    .then(async (data) => {
-                        alert("data updated!")
-                        console.log("data added to database");
-                        console.log("Logged in");
+                        try {
+                            const { user } = response;
+                            sessionStorage.setItem('Auth-Token', response._tokenResponse.refreshToken)
+                            console.log("Token Saved! " + response._tokenResponse.refreshToken)
+                            await updateProfile(user, {
+                                displayName: userName,
+                            })
+                            console.log("updateProfileDone!")
+                            await addDoc(collection(db, 'users'), {
+                                userId: user.uid,
+                                displayName: userName.toLowerCase(),
+                                fullName: fullName.toLowerCase(),
+                                email: email,
+                                following: [],
+                                dateCreated: Date.now()
+                            })
+                            console.log("navigating to dashboard.... ")
+                            navigate(ROUTES.DASHBOARD)
+                                .then(async (data) => {
+                                    alert("data updated!")
+                                    console.log("data added to database");
+                                    console.log("Logged in");
+                                })
+                        } catch (e) {
+                            console.log(e.message, e.code)
+                        }
                     })
             }
             catch (error) {
@@ -79,7 +84,9 @@ const SignUp = () => {
                         break;
                 }
             }
+
         } else {
+
             setError("user name is already taken")
             console.log("else block");
         }
