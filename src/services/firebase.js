@@ -22,6 +22,7 @@ export async function getuserByUserId(userId) {
 
     const user = querySnapshot.docs.map((item) => ({
         ...item.data(),
+        docId: item.id
     }));
     return user;
 }

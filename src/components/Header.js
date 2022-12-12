@@ -1,29 +1,27 @@
-import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
 import { UserAuth } from '../context/AuthContext'
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths'
 
 
+var loggedInUser;
 const Header = () => {
-    const loggedInUser = true;
-
     const { user, logout } = UserAuth();
+    const navigate = useNavigate();
+
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    const navigate = useNavigate();
 
     const handleLogout = () => {
         try {
             logout();
             navigate(ROUTES.LOGIN);
-            localStorage.clear();
+            sessionStorage.clear();
         } catch (error) {
             console.log(error.message);
-
         }
     }
 
@@ -31,7 +29,7 @@ const Header = () => {
         <header className="h-16 bg-white border-b border-gray-primary mb-8">
             <div className="container mx-auto max-w-screen-lg h-full">
                 <div className="flex justify-between h-full">
-                    <div className="text-gray-700 text-center justify-center flex items-center align-items cursor-pointer">
+                    <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
                         <h1 className="flex justify-center w-full">
                             <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
                                 <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12" />
@@ -39,7 +37,7 @@ const Header = () => {
                         </h1>
                     </div>
                     <div className="text-gray-700 text-center flex items-center align-items">
-                        {loggedInUser ? (
+                        {user ? (
                             <>
                                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                                     <svg
@@ -87,11 +85,11 @@ const Header = () => {
 
                                 {user && (
                                     <div className="flex items-center cursor-pointer">
-                                        <Link to={`/p/${user?.username}`}>
+                                        <Link to={`/p/${user?.userName}`}>
                                             <img
                                                 className="rounded-full h-8 w-8 flex"
-                                                src={`/images/avatars/${user?.username}.jpg`}
-                                                alt={`${user?.username} profile`}
+                                                src={`/images/avatars/${user?.userName}.jpg`}
+                                                alt={`${user?.userName} profile`}
                                                 onError={(e) => {
                                                     e.target.src = DEFAULT_IMAGE_PATH;
                                                 }}
@@ -121,9 +119,9 @@ const Header = () => {
                             </>
                         )}
                     </div>
-                </div>
-            </div>
-        </header>
+                </div >
+            </div >
+        </header >
     )
 }
 

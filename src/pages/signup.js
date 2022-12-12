@@ -26,7 +26,7 @@ const SignUp = () => {
         console.log("userExist? " + Boolean(!userExists));
         if (!userExists) { // Run the function if the name  doesn't exists in database
             try {
-                const createdUser = await createUser(email, password)
+                await createUser(email, password)
                     .then(async (response) => {
                         try {
                             const { user } = response;
@@ -52,7 +52,7 @@ const SignUp = () => {
                                     console.log("Logged in");
                                 })
                         } catch (e) {
-                            console.log(e.message, e.code)
+                            console.log(e.message + e.code)
                         }
                     })
             }
@@ -84,17 +84,21 @@ const SignUp = () => {
                         break;
                 }
             }
-
         } else {
-
-            setError("user name is already taken")
+            setError("Username is Already Taken")
             console.log("else block");
         }
     };
 
     useEffect(() => {
+        setTimeout(() => {
+            if (error) {
+                setError("");
+                console.log("Error reset")
+            }
+        }, 5000);
         document.title = "Sign Up - Instagram"
-    }, []);
+    }, [error]);
 
     return (
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">

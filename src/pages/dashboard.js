@@ -6,14 +6,13 @@ import Timeline from "../components/Timeline";
 import { UserAuth } from "../context/AuthContext";
 
 
-const { user, logout } = UserAuth();
-
 const Dashboard = () => {
+
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
 
-    return (<>
+    return (
         <div className="bg-gray-background">
             <Header />
             <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
@@ -21,7 +20,7 @@ const Dashboard = () => {
                 <Sidebar />
             </div>
         </div>
-    </>)
+    )
 }
 
 export default Dashboard

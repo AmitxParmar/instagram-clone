@@ -9,7 +9,7 @@ import {
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({});
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     };

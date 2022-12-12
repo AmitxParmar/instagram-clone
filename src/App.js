@@ -2,7 +2,8 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as ROUTES from './constants/Routes';
 import { AuthContextProvider } from "./context/AuthContext"
-/* import Layout from './components/Layout'; */
+
+import ProtectedRoute from './helpers/ProtectedRoutes';
 
 const Login = lazy(() => import('./pages/Login.js'));
 const SignUp = lazy(() => import('./pages/SignUp.js'));
@@ -18,11 +19,13 @@ const App = () => {
                         <Route path="*" element={<NotFound />} />
                         <Route path='/' element={<Login />} />
                         <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-                        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+
+                        <Route path={ROUTES.DASHBOARD} element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+
                     </Routes>
                 </Suspense>
             </Router>
-        </AuthContextProvider>
+        </AuthContextProvider >
     );
 }
 

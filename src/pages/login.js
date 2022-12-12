@@ -13,10 +13,12 @@ const Login = () => {
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
 
+
+
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const result = await login(email, password)
+            await login(email, password)
                 .then((response) => {
                     navigate(ROUTES.DASHBOARD)
                     sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
@@ -47,15 +49,24 @@ const Login = () => {
                     console.log(`Wrong Email or Password. ${errorCode}`);
                     break;
                 default:
+                    setError(error.message)
                     console.log(`${error.message} ${errorCode}`);
                     break;
             }
         }
     };
 
+
     useEffect(() => {
+        setTimeout(() => {
+            if (error) {
+                setError("");
+                console.log("error reset")
+            }
+        }, 5000);
+
         document.title = "Login - Instagram"
-    }, []);
+    }, [error]);
 
     return (
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
