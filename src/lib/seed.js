@@ -3,7 +3,7 @@
 
 
 // NOTE: replace "userId" with your firebase authentication userId (can be taken from firebase)
-async function seedDatabase(db) {
+/* async function seedDatabase(db) {
     const users = [
         {
             userId: 'ZHuJJT1PNiUXrX71NAQtLjXlf7G2',
@@ -69,4 +69,4 @@ async function seedDatabase(db) {
     }
     catch (e) { console.log(e.message); }
 }
-export default seedDatabase;
+export default seedDatabase; */

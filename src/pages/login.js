@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import * as ROUTES from "../constants/Routes";
 import { UserAuth } from "../context/AuthContext";
@@ -12,8 +12,6 @@ const Login = () => {
 
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
-
-
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -56,7 +54,6 @@ const Login = () => {
         }
     };
 
-
     useEffect(() => {
         setTimeout(() => {
             if (error) {
@@ -64,7 +61,6 @@ const Login = () => {
                 console.log("error reset")
             }
         }, 5000);
-
         document.title = "Login - Instagram"
     }, [error]);
 

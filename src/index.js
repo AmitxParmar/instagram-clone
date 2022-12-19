@@ -1,15 +1,16 @@
 import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import FirebaseContext from './context/Firebase'
-import { app, FieldValue } from "./lib/FirebaseConfig"
+import { app, /* FieldValue */ } from "./lib/FirebaseConfig"
 import "./styles/main.css"
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElement = document.getElementById('root')
+const root = createRoot(rootElement);
 
 root.render(
     <StrictMode>
-        <FirebaseContext.Provider value={{ app, FieldValue }}>
+        <FirebaseContext.Provider value={{ app /* FieldValue */ }}>
             <App />
         </FirebaseContext.Provider>
     </StrictMode>

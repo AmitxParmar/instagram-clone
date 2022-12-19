@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
-import { auth, db, collection, createUserWithEmailAndPassword, updateProfile, addDoc } from "../lib/FirebaseConfig"
+import { db, collection, addDoc } from "../lib/FirebaseConfig"
 import { doesUserNameExist } from "../services/Firebase";
 import { UserAuth } from "../context/AuthContext";
 
@@ -17,7 +17,7 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
 
-    const { createUser } = UserAuth();
+    const { createUser, setDisplayName } = UserAuth();
 
     const handleSignUp = async (event) => {
         event.preventDefault();
@@ -32,24 +32,23 @@ const SignUp = () => {
                             const { user } = response;
                             sessionStorage.setItem('Auth-Token', response._tokenResponse.refreshToken)
                             console.log("Token Saved! " + response._tokenResponse.refreshToken)
-                            await updateProfile(user, {
-                                displayName: userName,
-                            })
-                            console.log("updateProfileDone!")
+                            await setDisplayName(userName)
+                            console.log("updateDisplayNameDone!")
                             await addDoc(collection(db, 'users'), {
                                 userId: user.uid,
-                                displayName: userName.toLowerCase(),
+                                userName: userName.toLowerCase(),
                                 fullName: fullName.toLowerCase(),
                                 email: email,
+                                followers: [],
                                 following: [],
                                 dateCreated: Date.now()
                             })
-                            console.log("navigating to dashboard.... ")
-                            navigate(ROUTES.DASHBOARD)
-                                .then(async (data) => {
+                                .then((data) => {
                                     alert("data updated!")
                                     console.log("data added to database");
                                     console.log("Logged in");
+                                    navigate(ROUTES.DASHBOARD)
+                                    console.log("navigating to dashboard.... ")
                                 })
                         } catch (e) {
                             console.log(e.message + e.code)

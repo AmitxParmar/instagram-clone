@@ -1,19 +1,21 @@
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
+import { useContext } from 'react'
 import { UserAuth } from '../context/AuthContext'
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths'
+import useUser from '../hooks/useUser'
+import UserContext from '../context/LoggedInUser'
 
+console.log("check whether if logged in user works");
 
-var loggedInUser;
 const Header = () => {
+    const { user: loggedInUser } = useContext(UserContext);
     const { user, logout } = UserAuth();
     const navigate = useNavigate();
 
-
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
+    /*  function capitalizeFirstLetter(string) {
+         return string.charAt(0).toUpperCase() + string.slice(1);
+     } */
 
     const handleLogout = () => {
         try {
@@ -37,7 +39,7 @@ const Header = () => {
                         </h1>
                     </div>
                     <div className="text-gray-700 text-center flex items-center align-items">
-                        {user ? (
+                        {loggedInUser ? (
                             <>
                                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                                     <svg

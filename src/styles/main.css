@@ -494,6 +494,12 @@ video {
     max-width: 1536px;
   }
 }
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -507,6 +513,12 @@ video {
 .mr-6 {
   margin-right: 1.5rem;
 }
+.mt-12 {
+  margin-top: 3rem;
+}
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -515,6 +527,18 @@ video {
 }
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+.mr-4 {
+  margin-right: 1rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mr-1 {
+  margin-right: 0.25rem;
+}
+.mb-12 {
+  margin-bottom: 3rem;
 }
 .block {
   display: block;
@@ -539,6 +563,9 @@ video {
 }
 .h-2 {
   height: 0.5rem;
+}
+.h-4 {
+  height: 1rem;
 }
 .w-full {
   width: 100%;
@@ -566,6 +593,10 @@ video {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.select-none {
+  -webkit-user-select: none;
+          user-select: none;
 }
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -597,6 +628,9 @@ video {
 .border-b {
   border-bottom-width: 1px;
 }
+.border-t {
+  border-top-width: 1px;
+}
 .border-gray-primary {
   --tw-border-opacity: 1;
   border-color: rgb(219 219 219 / var(--tw-border-opacity));
@@ -613,6 +647,9 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
 }
+.fill-red {
+  fill: #ed4956;
+}
 .p-4 {
   padding: 1rem;
 }
@@ -623,6 +660,26 @@ video {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.pl-0 {
+  padding-left: 0px;
+}
+.pr-5 {
+  padding-right: 1.25rem;
+}
+.pt-1 {
+  padding-top: 0.25rem;
+}
+.pb-4 {
+  padding-bottom: 1rem;
 }
 .text-center {
   text-align: center;
@@ -641,6 +698,9 @@ video {
 }
 .font-bold {
   font-weight: 700;
+}
+.uppercase {
+  text-transform: uppercase;
 }
 .text-black-light {
   --tw-text-opacity: 1;
@@ -664,4 +724,11 @@ video {
 }
 .opacity-50 {
   opacity: 0.5;
+}
+.opacity-25 {
+  opacity: 0.25;
+}
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
