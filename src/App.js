@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import * as ROUTES from './constants/Routes';
 import { AuthContextProvider } from "./context/AuthContext";
 import ReactLoader from './components/Loader'
-import useAuthListener from './hooks/useAuthListener';
 import ProtectedRoute from './helpers/ProtectedRoutes';
-import UserContext from './context/User';
+//import UserContext from './context/User';
 
 const Login = lazy(() => import('./pages/Login.js'));
 const SignUp = lazy(() => import('./pages/SignUp.js'));
@@ -14,10 +13,9 @@ const Dashboard = lazy(() => import('./pages/Dashboard.js'));
 //const Profile = lazy(() => import('./pages/Profile.js'));
 
 const App = () => {
-    const { user } = useAuthListener();
+
     return (
-        //<AuthContextProvider>
-        <UserContext.Provider value={{ user }}>
+        <AuthContextProvider>
             <Router>
                 <Suspense fallback={<ReactLoader />}>
                     <Routes>
@@ -28,8 +26,7 @@ const App = () => {
                     </Routes>
                 </Suspense>
             </Router>
-        </UserContext.Provider>
-        //  </AuthContextProvider> 
+        </AuthContextProvider>
 
     );
 }

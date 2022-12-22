@@ -1,6 +1,8 @@
-import { createContext, useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import {
+    db,
     auth,
+    app,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
@@ -11,7 +13,7 @@ import UserContext from './User'
 //const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-    useContext(UserContext);
+
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -38,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 localStorage.setItem('authUser', JSON.stringify(currentUser));
-                console.log("LocalstorageSAve! currentUserData return by onAuthChanged " + JSON.stringify(currentUser));
+                console.log("LocalStorage Saved! currentUserData return by onAuthStateChanged " + JSON.stringify(currentUser));
                 setUser(currentUser);
                 setIsAuthenticated(true);
                 console.log(`set user success` + JSON.stringify(currentUser))
@@ -50,13 +52,15 @@ export const AuthContextProvider = ({ children }) => {
         })
         return () => unsubscribe();
     }, [])
+
+
     return (
-        <UserContext.Provider value={{ isAuthenticated, createUser, user, setUser, logout, login, setDisplayName }}>
+        <UserContext.Provider value={{ isAuthenticated, createUser, user, setUser, logout, login, setDisplayName, db, app }}>
             {children}
         </UserContext.Provider>
     );
 };
 
-export const UserAuth = () => {
+export function useAuth() {
     return useContext(UserContext)
 }

@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import { UserAuth } from "../context/AuthContext";
 import { getUserByUserId } from "../services/Firebase";
 
 export default function useUser(userId) {
     const [activeUser, setActiveUser] = useState({});
-    const { user } = UserAuth();
 
     useEffect(() => {
         async function getUserObjByUserId(userId) {
@@ -17,6 +15,6 @@ export default function useUser(userId) {
         }
     }, [userId]);
 
-    return { user: activeUser, setActiveUser };
+    return { userDB: activeUser, setActiveUser };
 
 }

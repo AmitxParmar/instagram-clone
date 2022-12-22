@@ -1,16 +1,16 @@
+
+import PropTypes from 'prop-types'
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
 import { useContext } from 'react'
-import { UserAuth } from '../context/AuthContext'
+import { useAuth } from '../context/AuthContext'
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths'
 import useUser from '../hooks/useUser'
-import UserContext from '../context/LoggedInUser'
+//import UserContext from '../context/LoggedInUser'
 
-console.log("check whether if logged in user works");
-
+//const loggedInUser = false
 const Header = () => {
-    const { user: loggedInUser } = useContext(UserContext);
-    const { user, logout } = UserAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
 
     /*  function capitalizeFirstLetter(string) {
@@ -21,7 +21,7 @@ const Header = () => {
         try {
             logout();
             navigate(ROUTES.LOGIN);
-            sessionStorage.clear();
+            localStorage.clear();
         } catch (error) {
             console.log(error.message);
         }
@@ -39,7 +39,7 @@ const Header = () => {
                         </h1>
                     </div>
                     <div className="text-gray-700 text-center flex items-center align-items">
-                        {loggedInUser ? (
+                        {user ? (
                             <>
                                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                                     <svg
@@ -126,5 +126,19 @@ const Header = () => {
         </header >
     )
 }
+
+/* Header.propTypes = {
+    photosCount: PropTypes.number.isRequired,
+    followerCount: PropTypes.number.isRequired,
+    setFollowerCount: PropTypes.func.isRequired,
+    profile: PropTypes.shape({
+        docId: PropTypes.string,
+        userId: PropTypes.string,
+        fullName: PropTypes.string,
+        userName: PropTypes.string,
+        followers: PropTypes.array,
+        following: PropTypes.array
+    }).isRequired
+}; */
 
 export default Header

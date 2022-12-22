@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+/* import { useEffect, useState, useContext } from "react";
 import FirebaseContext from "../context/Firebase"
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../lib/FirebaseConfig";
@@ -21,4 +21,4 @@ export default function useAuthListener() {
         return () => listener();
     }, [app])
     return { user };
-}
+} */

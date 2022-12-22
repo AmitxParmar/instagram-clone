@@ -10,9 +10,7 @@ const root = createRoot(rootElement);
 
 root.render(
     <StrictMode>
-        <FirebaseContext.Provider value={{ app /* FieldValue */ }}>
-            <App />
-        </FirebaseContext.Provider>
+        <App />
     </StrictMode>
 );
 

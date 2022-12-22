@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-sequences */
-/* eslint-disable no-undef */
+
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton'

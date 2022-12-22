@@ -14,7 +14,7 @@ export default function Post({ content }) {
     // -> header, image, actions (like & comment icons), footer, comments
     return (
         <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
-            <Header username={content.username} />
+            <Header userName={content.userName} />
             <Image src={content.imageSrc} caption={content.caption} />
             <Actions
                 docId={content.docId}
@@ -22,7 +22,7 @@ export default function Post({ content }) {
                 likedPhoto={content.userLikedPhoto}
                 handleFocus={handleFocus}
             />
-            <Footer caption={content.caption} username={content.username} />
+            <Footer caption={content.caption} userName={content.userName} />
             <Comments
                 docId={content.docId}
                 comments={content.comments}
@@ -35,7 +35,7 @@ export default function Post({ content }) {
 
 Post.propTypes = {
     content: PropTypes.shape({
-        username: PropTypes.string.isRequired,
+        userName: PropTypes.string.isRequired,
         imageSrc: PropTypes.string.isRequired,
         caption: PropTypes.string.isRequired,
         docId: PropTypes.string.isRequired,

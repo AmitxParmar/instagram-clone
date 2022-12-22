@@ -1,18 +1,21 @@
 import { db } from "../lib/FirebaseConfig"
 import { collection, where, query, limit, getDocs } from "../lib/FirebaseConfig"
+import { useAuth } from "../context/AuthContext";
+
 
 const colRefUser = collection(db, "users");
 
-export const doesUserNameExist = async (username) => {
+export const doesUserNameExist = async (userName) => {
     const querySnapshot = await getDocs(query(
         colRefUser,
-        where("userName", "==", username),
+        where("userName", "==", userName.toLowerCase()),
         limit(1)
     ));
     console.log("doesUserNameExists check " + JSON.stringify(querySnapshot));
     return !querySnapshot.empty
 }
-export async function getuserByUsername(userName) {
+
+export async function getUserByUserName(userName) {
     const querySnapshot = await getDocs(query(colRefUser, where('userName', '==', userName.toLowerCase())));
 
     return querySnapshot.docChanges.map(item => ({
@@ -22,27 +25,32 @@ export async function getuserByUsername(userName) {
 }
 
 // get user from the firestore where userId === userId (passed from the auth)
+
 export async function getUserByUserId(userId) {
+
     const querySnapshot = await getDocs(query(
         colRefUser,
         where("userId", "==", userId),
         limit(1)
     ));
-    const user = querySnapshot.docs.map((item) => ({
+
+    console.log(querySnapshot.data());
+
+    const userr = querySnapshot.docs.map((item) => ({
         ...item.data(),
         docId: item.id
     }));
-    return user;
+    return userr;
 }
 
 // Check all conditions before limit results
 export async function getSuggestedProfiles(userId, following) {
     let suggestions = [];
     if (following.length > 0) {
-        const suggestions = await getDocs(query(colRefUser, where("userId", "not-in", userId)))
+        suggestions = await getDocs(query(colRefUser, where("userId", "not-in", userId)))
     }
     else {
-        const suggestions = await getDocs(query(colRefUser("userId", "!=", userId), limit(10)))
+        suggestions = await getDocs(query(colRefUser("userId", "!=", userId), limit(10)))
     }
     console.log(suggestions)
     return suggestions;
@@ -67,7 +75,22 @@ export async function getPhotos(userId, following) {
 }
 
 /*
-const q = await getDocs(colRef, where("displayName", "==", username.toLowerCase()))
+const q = await getDocs(colRef, where("displayName", "==", userName.toLowerCase()))
 async function emailAlreadyExists(email) {
 const db = getFirestore();
  */
+export async function updateFollowedUserFollowers(
+    profileDocId, // currently logged in user document id (karl's profile)
+    loggedInUserDocId, // the user that karl requests to follow
+    isFollowingProfile // true/false (am i currently following this person?)
+) {
+    /* return firebase
+        .firestore()
+        .collection('users')
+        .doc(profileDocId)
+        .update({
+            followers: isFollowingProfile ?
+                FieldValue.arrayRemove(loggedInUserDocId) :
+                FieldValue.arrayUnion(loggedInUserDocId)
+        }); */
+}

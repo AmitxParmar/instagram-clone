@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import * as ROUTES from "../constants/Routes";
-import { UserAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-    const { login } = UserAuth();
+    const { login, logout } = useAuth();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -19,7 +19,8 @@ const Login = () => {
             await login(email, password)
                 .then((response) => {
                     navigate(ROUTES.DASHBOARD)
-                    sessionStorage.setItem('Auth Token', response._tokenResponse.refreshToken)
+                    sessionStorage.setItem('Auth_Token', response._tokenResponse.refreshToken)
+                    alert(`${response.user.email} Logged in`)
                 })
         } catch (error) {
             const errorCode = error.code;
@@ -60,9 +61,16 @@ const Login = () => {
                 setError("");
                 console.log("error reset")
             }
-        }, 5000);
+        }, 10000);
         document.title = "Login - Instagram"
     }, [error]);
+    function handleLogout(e) {
+        try {
+            logout();
+        } catch (error) {
+            setError(error.message);
+        }
+    }
 
     return (
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
@@ -101,12 +109,14 @@ const Login = () => {
                             disabled={isInvalid}
                             type="submit"
                             className={`bg-blue-medium text-white w-full rounded h-8 font-bold
-            ${isInvalid && 'opacity-50'}`}
-                        >
+            ${isInvalid && 'opacity-50'}`}>
                             Login
                         </button>
+
+
                     </form>
                 </div>
+
                 <div className="flex justify-center items-center flex-col w-full bg-white p-4 rounded border border-gray-primary">
                     <p className="text-sm">
                         Don't have an account?{` `}
@@ -115,8 +125,15 @@ const Login = () => {
                         </Link>
                     </p>
                 </div>
+
+                <button
+                    onClick={handleLogout}
+                    className={`bg-blue-medium text-white w-full rounded h-8 font-bold`}>
+                    Logout
+                </button>
+
             </div>
-        </div>
+        </div >
     );
 }
 

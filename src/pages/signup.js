@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
 import { db, collection, addDoc } from "../lib/FirebaseConfig"
 import { doesUserNameExist } from "../services/Firebase";
-import { UserAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 const SignUp = () => {
     //const { firebaseApp } = useContext(FirebaseContext);
@@ -17,7 +17,7 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
 
-    const { createUser, setDisplayName } = UserAuth();
+    const { createUser, setDisplayName } = useAuth();
 
     const handleSignUp = async (event) => {
         event.preventDefault();
