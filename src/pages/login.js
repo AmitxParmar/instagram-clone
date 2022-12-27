@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { memo, useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import * as ROUTES from "../constants/Routes";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/AuthContext";
 
 const Login = () => {
     const { login, logout } = useAuth();
@@ -137,4 +137,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default memo(Login);

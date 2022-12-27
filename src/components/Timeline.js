@@ -11,6 +11,7 @@ const Timeline = () => {
     const { user: { following } = {} } = useContext(LoggedInUserContext);
 
     const { photos } = usePhotos(user);
+
     return (
         <div className='container col-span-2'>
             {following === undefined ? (

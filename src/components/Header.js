@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
 import { useContext } from 'react'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../hooks/AuthContext'
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths'
 import useUser from '../hooks/useUser'
 //import UserContext from '../context/LoggedInUser'
 
 //const loggedInUser = false
 const Header = () => {
+
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
@@ -90,7 +91,7 @@ const Header = () => {
                                         <Link to={`/p/${user?.userName}`}>
                                             <img
                                                 className="rounded-full h-8 w-8 flex"
-                                                src={`/images/avatars/${user?.userName}.jpg`}
+                                                src={`/images/avatars/${user?.displayName}.jpg`}
                                                 alt={`${user?.userName} profile`}
                                                 onError={(e) => {
                                                     e.target.src = DEFAULT_IMAGE_PATH;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
-import { db, collection, addDoc } from "../lib/FirebaseConfig"
+import { db, collection, doc, setDoc, serverTimestamp } from "../lib/FirebaseConfig"
 import { doesUserNameExist } from "../services/Firebase";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/AuthContext";
 
 const SignUp = () => {
     //const { firebaseApp } = useContext(FirebaseContext);
@@ -34,14 +34,15 @@ const SignUp = () => {
                             console.log("Token Saved! " + response._tokenResponse.refreshToken)
                             await setDisplayName(userName)
                             console.log("updateDisplayNameDone!")
-                            await addDoc(collection(db, 'users'), {
+                            setDoc(doc(db, 'users', user.uid), {
                                 userId: user.uid,
                                 userName: userName.toLowerCase(),
                                 fullName: fullName.toLowerCase(),
                                 email: email,
                                 followers: [],
                                 following: [],
-                                dateCreated: Date.now()
+                                dateCreated: Date.now(),
+                                timestamp: serverTimestamp()
                             })
                                 .then((data) => {
                                     alert("data updated!")
@@ -90,12 +91,13 @@ const SignUp = () => {
     };
 
     useEffect(() => {
-        setTimeout(() => {
+        const e = setTimeout(() => {
             if (error) {
                 setError("");
                 console.log("Error reset")
             }
-        }, 5000);
+        }, 8000);
+        clearTimeout(e);
         document.title = "Sign Up - Instagram"
     }, [error]);
 

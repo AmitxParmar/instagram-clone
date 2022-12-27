@@ -4,7 +4,6 @@ import { getPhotos } from "../services/Firebase"
 export default function usePhotos(user) {
     const [photos, setPhotos] = useState(null);
 
-
     useEffect(
         () => {
             async function getTimelinePhotos() {

@@ -3,11 +3,15 @@ import { getUserByUserId } from "../services/Firebase";
 
 export default function useUser(userId) {
     const [activeUser, setActiveUser] = useState({});
-
     useEffect(() => {
-        async function getUserObjByUserId(userId) {
-            const [user] = await getUserByUserId(userId);
-            setActiveUser(user || {});
+        function getUserObjByUserId(userId) {
+            /* const [userIDData] = await */ getUserByUserId(userId)
+                .then((data) => {
+                    localStorage.setItem('userFirestoreData', JSON.stringify(data));
+                    setActiveUser(data || {});
+                    console.log('useriddata ======== ' + data);
+                    console.log("active user check" + JSON.stringify(activeUser))
+                })
         }
 
         if (userId) {
@@ -15,6 +19,7 @@ export default function useUser(userId) {
         }
     }, [userId]);
 
-    return { userDB: activeUser, setActiveUser };
-
+    return { userData: activeUser, setActiveUser };
 }
+
+

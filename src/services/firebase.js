@@ -1,11 +1,10 @@
 import { db } from "../lib/FirebaseConfig"
-import { collection, where, query, limit, getDocs } from "../lib/FirebaseConfig"
-import { useAuth } from "../context/AuthContext";
+import { collection, where, getDoc, query, limit, getDocs, doc, onSnapshot } from "../lib/FirebaseConfig"
 
 
 const colRefUser = collection(db, "users");
 
-export const doesUserNameExist = async (userName) => {
+export async function doesUserNameExist(userName) {
     const querySnapshot = await getDocs(query(
         colRefUser,
         where("userName", "==", userName.toLowerCase()),
@@ -16,9 +15,12 @@ export const doesUserNameExist = async (userName) => {
 }
 
 export async function getUserByUserName(userName) {
-    const querySnapshot = await getDocs(query(colRefUser, where('userName', '==', userName.toLowerCase())));
 
-    return querySnapshot.docChanges.map(item => ({
+    const querySnapshot = await getDocs(
+        query(colRefUser,
+            where('userName', '==', userName.toLowerCase())
+        ));
+    return querySnapshot.docs.map(item => ({
         ...item.data(),
         docId: item.id
     }));
@@ -27,21 +29,33 @@ export async function getUserByUserName(userName) {
 // get user from the firestore where userId === userId (passed from the auth)
 
 export async function getUserByUserId(userId) {
+    let userIDData = [];
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef)
+    if (docSnap.exists()) {
+        //userIDData = [{ ...doc.data(), id: doc.id }]
+        console.log("yes the searched docsnap exists " + JSON.stringify(docSnap.data()))
+        userIDData = { ...docSnap.data(), docId: docSnap.id }
+    }
+    else {
+        console.log('no such userbyuserid found')
+    }
+    /* .catch ((err) => { console.log('error msg coming from getuserbyyuserid firebase ' + err.message) }) */
+    return userIDData
 
-    const querySnapshot = await getDocs(query(
+    /* const querySnapshot = await getDoc(query(
         colRefUser,
         where("userId", "==", userId),
-        limit(1)
     ));
-
     console.log(querySnapshot.data());
-
-    const userr = querySnapshot.docs.map((item) => ({
+    const userIDData = querySnapshot.docs.map((item) => ({
         ...item.data(),
         docId: item.id
     }));
-    return userr;
+    return userIDData.data(); */
 }
+console.log('logging the useid function it self' + getUserByUserId('UZLLrCDjmUMk1Gxfp8OVhy3VEGC3'))
+
 
 // Check all conditions before limit results
 export async function getSuggestedProfiles(userId, following) {
@@ -50,7 +64,11 @@ export async function getSuggestedProfiles(userId, following) {
         suggestions = await getDocs(query(colRefUser, where("userId", "not-in", userId)))
     }
     else {
-        suggestions = await getDocs(query(colRefUser("userId", "!=", userId), limit(10)))
+        suggestions = await
+            getDocs(
+                query(
+                    colRefUser("userId", "!=", userId),
+                    limit(10)))
     }
     console.log(suggestions)
     return suggestions;

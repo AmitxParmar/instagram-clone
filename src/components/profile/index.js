@@ -23,7 +23,7 @@ export default function Profile({ user }) {
             dispatch({ profile: user, photosCollection: photos, followerCount: user.followers.length });
         }
         getProfileInfoAndPhotos();
-    }, [user.userName]);
+    }, [user.userName, user]);
 
     return (
         <>

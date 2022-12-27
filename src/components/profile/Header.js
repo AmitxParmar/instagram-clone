@@ -20,29 +20,29 @@ export default function Header({
         userName: profileUsername
     }
 }) {
-    const { user: loggedInUser } = useContext(UserContext);
-    const { user } = useUser(loggedInUser?.uid);
+    const { userDB: loggedInUser } = useContext(UserContext);
+    const { userDB } = useUser(loggedInUser?.uid);
     const [isFollowingProfile, setIsFollowingProfile] = useState(null);
-    const activeBtnFollow = user?.userName && user?.userName !== profileUsername;
+    const activeBtnFollow = userDB?.userName && userDB?.userName !== profileUsername;
 
     const handleToggleFollow = async () => {
         setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
         setFollowerCount({
             followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1
         });
-        await toggleFollow(isFollowingProfile, user.docId, profileDocId, profileUserId, user.userId);
+        await toggleFollow(isFollowingProfile, userDB.docId, profileDocId, profileUserId, userDB.userId);
     };
 
     useEffect(() => {
         const isLoggedInUserFollowingProfile = async () => {
-            const isFollowing = await isUserFollowingProfile(user.userName, profileUserId);
+            const isFollowing = await isUserFollowingProfile(userDB.userName, profileUserId);
             setIsFollowingProfile(!!isFollowing);
         };
 
-        if (user?.userName && profileUserId) {
+        if (userDB?.userName && profileUserId) {
             isLoggedInUserFollowingProfile();
         }
-    }, [user?.userName, profileUserId]);
+    }, [userDB?.userName, profileUserId]);
 
     return (
         <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">

@@ -1,6 +1,6 @@
 import { cloneElement } from 'react'
 import { Route, Navigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../hooks/AuthContext'
 import * as ROUTES from "../constants/Routes"
 import { PropTypes } from 'prop-types'
 
