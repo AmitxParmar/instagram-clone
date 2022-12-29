@@ -128,7 +128,7 @@ const Header = () => {
     )
 }
 
-/* Header.propTypes = {
+Header.propTypes = {
     photosCount: PropTypes.number.isRequired,
     followerCount: PropTypes.number.isRequired,
     setFollowerCount: PropTypes.func.isRequired,
@@ -140,6 +140,6 @@ const Header = () => {
         followers: PropTypes.array,
         following: PropTypes.array
     }).isRequired
-}; */
+};
 
 export default Header

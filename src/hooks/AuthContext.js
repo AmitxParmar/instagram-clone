@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-    //main signup function takes email and password from the user and returns signed in user's object containing email, displayname and some other information.
+    //main signup function takes email and password from the user and returns signed in user's object containing email, displayName and some other information.
     const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
     // NOTE: sign up and adding the particular user's doc in database. and also search how to add custom id to the document.
@@ -25,6 +25,7 @@ export const AuthContextProvider = ({ children }) => {
     const setDisplayName = (name) => {
         updateProfile(auth.currentUser, {
             displayName: name,
+            photoURL: "../images/users/raphael/1.jpg"
         }).catch((error) => {
             console.log(error.message);
         });
@@ -38,10 +39,10 @@ export const AuthContextProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 localStorage.setItem('authUser', JSON.stringify(currentUser));
-                console.log("LocalStorage Saved! currentUserData return by onAuthStateChanged " + JSON.stringify(currentUser));
+                console.log("LocalStorage Saved! currentUserData return by onAuthStateChanged " /* + JSON.stringify(currentUser) */);
                 setUser(currentUser);
                 setIsAuthenticated(true);
-                console.log(`set user success` + JSON.stringify(currentUser))
+                console.log(`set user success` /* + JSON.stringify(currentUser) */)
             } else {
                 localStorage.removeItem('authUser');
                 setUser(null);

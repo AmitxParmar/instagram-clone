@@ -13,18 +13,16 @@ export async function doesUserNameExist(userName) {
     console.log("doesUserNameExists check " + JSON.stringify(querySnapshot));
     return !querySnapshot.empty
 }
-
+// NOTE: Testing done
 export async function getUserByUserName(userName) {
-
-    const querySnapshot = await getDocs(
-        query(colRefUser,
-            where('userName', '==', userName.toLowerCase())
-        ));
-    return querySnapshot.docs.map(item => ({
+    const q = query(colRefUser, where('userName', '==', userName.toLowerCase()))
+    const users = await getDocs(q)
+    return users.docs.map(item => ({
         ...item.data(),
         docId: item.id
     }));
 }
+console.log(getUserByUserName('jack'))
 
 // get user from the firestore where userId === userId (passed from the auth)
 
@@ -34,8 +32,8 @@ export async function getUserByUserId(userId) {
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
         //userIDData = [{ ...doc.data(), id: doc.id }]
-        console.log("yes the searched docsnap exists " + JSON.stringify(docSnap.data()))
-        userIDData = { ...docSnap.data(), docId: docSnap.id }
+        console.log("yes the searched(userIdQuery) docSnap exists " + JSON.stringify(docSnap.data()))
+        userIDData.push({ ...docSnap.data(), docId: docSnap.id })
     }
     else {
         console.log('no such userbyuserid found')
@@ -56,23 +54,25 @@ export async function getUserByUserId(userId) {
 }
 console.log('logging the useid function it self' + getUserByUserId('UZLLrCDjmUMk1Gxfp8OVhy3VEGC3'))
 
-
 // Check all conditions before limit results
+
 export async function getSuggestedProfiles(userId, following) {
     let suggestions = [];
     if (following.length > 0) {
-        suggestions = await getDocs(query(colRefUser, where("userId", "not-in", userId)))
+        await getDocs(query(colRefUser, where("userId", "not-in", [...following, userId])))
+            .then((data) => suggestions.push(JSON.stringify(data)))
     }
     else {
-        suggestions = await
+        await
             getDocs(
                 query(
-                    colRefUser("userId", "!=", userId),
+                    colRefUser, where("userId", "!=", userId),
                     limit(10)))
+                .then((data) => suggestions.push(JSON.stringify(data)))
     }
-    console.log(suggestions)
     return suggestions;
 }
+console.log('suggestions ' + getSuggestedProfiles('UZLLrCDjmUMk1Gxfp8OVhy3VEGC3', [1, 3, 4]))
 
 export async function updateLoggedInUserFollowing(loggedinUserDocId, // currently logged in user document id (karl's profile)
     profile, // the user that karl requests to follow
