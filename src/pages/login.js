@@ -20,7 +20,6 @@ const Login = () => {
                 .then((response) => {
                     navigate(ROUTES.DASHBOARD)
                     sessionStorage.setItem('Auth_Token', response._tokenResponse.refreshToken)
-                    alert(`${response.user.email} Logged in`)
                 })
         } catch (error) {
             const errorCode = error.code;

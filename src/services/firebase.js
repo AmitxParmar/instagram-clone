@@ -1,6 +1,4 @@
-import { db } from "../lib/FirebaseConfig"
-import { collection, where, getDoc, query, limit, getDocs, doc, onSnapshot } from "../lib/FirebaseConfig"
-
+import { collection, db, doc, getDoc, getDocs, limit, query, where } from '../lib/FirebaseConfig';
 
 const colRefUser = collection(db, "users");
 
@@ -22,18 +20,18 @@ export async function getUserByUserName(userName) {
         docId: item.id
     }));
 }
-console.log(getUserByUserName('jack'))
+console.log(JSON.stringify(getUserByUserName('jack')))
 
 // get user from the firestore where userId === userId (passed from the auth)
 
 export async function getUserByUserId(userId) {
-    let userIDData = [];
+    let userIDData;
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
         //userIDData = [{ ...doc.data(), id: doc.id }]
         console.log("yes the searched(userIdQuery) docSnap exists " + JSON.stringify(docSnap.data()))
-        userIDData.push({ ...docSnap.data(), docId: docSnap.id })
+        userIDData = { ...docSnap.data(), docId: docSnap.id }
     }
     else {
         console.log('no such userbyuserid found')
@@ -52,7 +50,6 @@ export async function getUserByUserId(userId) {
     }));
     return userIDData.data(); */
 }
-console.log('logging the useid function it self' + getUserByUserId('UZLLrCDjmUMk1Gxfp8OVhy3VEGC3'))
 
 // Check all conditions before limit results
 
@@ -60,7 +57,7 @@ export async function getSuggestedProfiles(userId, following) {
     let suggestions = [];
     if (following.length > 0) {
         await getDocs(query(colRefUser, where("userId", "not-in", [...following, userId])))
-            .then((data) => suggestions.push(JSON.stringify(data)))
+            .then((data) => suggestions.push(data))
     }
     else {
         await

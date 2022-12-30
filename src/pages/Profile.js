@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+/* import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getUserByUserName } from '../services/Firebase'
 import * as ROUTES from '../constants/Routes'
@@ -31,4 +31,4 @@ const Profile = () => {
     ) : null;
 }
 
-export default Profile
+export default Profile */

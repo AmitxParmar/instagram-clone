@@ -1,19 +1,19 @@
-
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useNavigate } from 'react-router-dom'
 import * as ROUTES from "../constants/Routes"
-import { useContext } from 'react'
 import { useAuth } from '../hooks/AuthContext'
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths'
-import useUser from '../hooks/useUser'
-//import UserContext from '../context/LoggedInUser'
+//import useUser from '../hooks/useUser'
+import LoggedInUserContext from '../context/LoggedInUser'
 
 //const loggedInUser = false
+
 const Header = () => {
-
-    const { user, logout } = useAuth();
+    const { userData } = useContext(LoggedInUserContext)
+    const { user, logout, isAuthenticated } = useAuth();
     const navigate = useNavigate();
-
+console.log('userdata Header'+JSON.stringify(userData))
     /*  function capitalizeFirstLetter(string) {
          return string.charAt(0).toUpperCase() + string.slice(1);
      } */
@@ -30,17 +30,17 @@ const Header = () => {
 
     return (
         <header className="h-16 bg-white border-b border-gray-primary mb-8">
-            <div className="container mx-auto max-w-screen-lg h-full">
-                <div className="flex justify-between h-full">
-                    <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
-                        <h1 className="flex justify-center w-full">
-                            <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
-                                <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12" />
-                            </Link>
-                        </h1>
-                    </div>
+          <div className="container mx-auto max-w-screen-lg h-full">
+            <div className="flex justify-between h-full">
+              <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
+                <h1 className="flex justify-center w-full">
+                  <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
+                    <img src="/images/logo.png" alt="Instagram" className="mt-2 w-6/12" />
+                  </Link>
+                </h1>
+             </div>
                     <div className="text-gray-700 text-center flex items-center align-items">
-                        {user ? (
+                        {isAuthenticated ? (
                             <>
                                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                                     <svg
@@ -91,8 +91,8 @@ const Header = () => {
                                         <Link to={`/p/${user?.userName}`}>
                                             <img
                                                 className="rounded-full h-8 w-8 flex"
-                                                src={`/images/avatars/${user?.displayName}.jpg`}
-                                                alt={`${user?.userName} profile`}
+                                                src={`/images/avatars/${userData?.userName}.jpg`}
+                                                alt={`${userData?.userName} profile`}
                                                 onError={(e) => {
                                                     e.target.src = DEFAULT_IMAGE_PATH;
                                                 }}

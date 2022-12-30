@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import { useState, useEffect, useContext } from 'react';
+/* import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-loading-skeleton';
 import useUser from '../../hooks/useUser';
@@ -20,10 +20,10 @@ export default function Header({
         userName: profileUsername
     }
 }) {
-    const { userDB: loggedInUser } = useContext(UserContext);
-    const { userDB } = useUser(loggedInUser?.uid);
+    const { userData: loggedInUser } = useContext(UserContext);
+    const { userData } = useUser(loggedInUser?.uid);
     const [isFollowingProfile, setIsFollowingProfile] = useState(null);
-    const activeBtnFollow = userDB?.userName && userDB?.userName !== profileUsername;
+    const activeBtnFollow = userData?.userName && userData?.userName !== profileUsername;
 
     const handleToggleFollow = async () => {
         setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -122,3 +122,4 @@ Header.propTypes = {
         following: PropTypes.array
     }).isRequired
 };
+ */

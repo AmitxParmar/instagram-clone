@@ -3,12 +3,11 @@ import Skeleton from 'react-loading-skeleton';
 import LoggedInUserContext from '../context/LoggedInUser';
 import usePhotos from '../hooks/usePhotos'
 import Post from './post/index'
+import { useAuth } from "../hooks/AuthContext";
 
 const Timeline = () => {
-
-    const { user } = useContext(LoggedInUserContext);
-
-    const { user: { following } = {} } = useContext(LoggedInUserContext);
+const {user}= useAuth()
+    const { userData: { following } = {} } = useContext(LoggedInUserContext);
 
     const { photos } = usePhotos(user);
 

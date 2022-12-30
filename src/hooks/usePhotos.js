@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+/* import { useState, useEffect } from "react"
 import { getPhotos } from "../services/Firebase"
 
 export default function usePhotos(user) {
@@ -17,3 +17,4 @@ export default function usePhotos(user) {
         }, [user?.userId, user?.following])
     return { photos };
 }
+ */

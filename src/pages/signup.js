@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from 'react-router-dom'
-import * as ROUTES from "../constants/Routes"
-import { db, collection, doc, setDoc, serverTimestamp } from "../lib/FirebaseConfig"
-import { doesUserNameExist } from "../services/Firebase";
-import { useAuth } from "../hooks/AuthContext";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import * as ROUTES from '../constants/Routes';
+import { useAuth } from '../hooks/AuthContext';
+import { db, doc, serverTimestamp, setDoc } from '../lib/FirebaseConfig';
+import { doesUserNameExist } from '../services/Firebase';
 
 const SignUp = () => {
     //const { firebaseApp } = useContext(FirebaseContext);
@@ -203,7 +204,7 @@ console.log("User profile updated")
 await addDoc(collection(db, 'users'), {
     userId: user.uid,
     displayName: userName.toLowerCase(),
-    fullName: fullName.toLowerCase,
+    fullName: fullName.toLowerCase, // There was a parentheses mistake lol
     email: email.toLowerCase,
     following: [],
     dateCreated: Date.now()

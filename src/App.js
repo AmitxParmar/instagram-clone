@@ -1,9 +1,10 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import ReactLoader from './components/Loader';
 import * as ROUTES from './constants/Routes';
-import { AuthContextProvider } from "./hooks/AuthContext";
-import ReactLoader from './components/Loader'
-import ProtectedRoute from './helpers/ProtectedRoutes';
+import { AuthContextProvider } from './hooks/AuthContext';
+
 //import UserContext from './context/User';
 
 const Login = lazy(() => import('./pages/Login.js'));

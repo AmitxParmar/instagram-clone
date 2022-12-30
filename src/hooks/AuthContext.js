@@ -15,7 +15,7 @@ import UserContext from '../context/User'
 export const AuthContextProvider = ({ children }) => {
     // state storage currently logged user's object in state.
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('authUser')));
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
 
     //main signup function takes email and password from the user and returns signed in user's object containing email, displayName and some other information.
     const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
