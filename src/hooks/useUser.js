@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { getUserByUserId } from "../services/Firebase";
+import { useEffect, useState } from 'react';
+
+import { getUserByUserId } from '../services/Firebase';
 
 function useUser(userId) {
     const [activeUser, setActiveUser] = useState(JSON.parse(localStorage.getItem('userFirestoreData')));
@@ -11,8 +12,8 @@ function useUser(userId) {
                     localStorage.setItem('userFirestoreData', JSON.stringify(data));
                     setActiveUser(data || {});
                     console.log('userIDData ======== ' + JSON.stringify(data));
-                    console.log("active user check" + JSON.stringify(activeUser))
-                })
+                    console.log("active user check" + JSON.stringify(activeUser));
+                });
         }
 
         if (userId) {

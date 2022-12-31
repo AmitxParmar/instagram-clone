@@ -1,12 +1,9 @@
-import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-    updateLoggedInUserFollowing,
-    updateFollowedUserFollowers,
-    getUserByUserId
-} from '../../services/Firebase';
+
 import LoggedInUserContext from '../../context/LoggedInUser';
+import { getUserByUserId, updateFollowedUserFollowers, updateLoggedInUserFollowing } from '../../services/Firebase';
 
 export default function SuggestedProfile({
     profileDocId,
@@ -22,8 +19,11 @@ export default function SuggestedProfile({
         setFollowed(true);
         await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
         await updateFollowedUserFollowers(profileDocId, userId, false);
-        const [user] = await getUserByUserId(userId);
-        setActiveUser(user);
+        /*  const [user] = await */
+        getUserByUserId(userId).then((update) => {
+            setActiveUser(update);
+        }
+        );
     }
 
     return !followed ? (

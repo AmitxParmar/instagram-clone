@@ -1,5 +1,6 @@
-/* import { useState, useEffect } from "react"
-import { getPhotos } from "../services/Firebase"
+import { useEffect, useState } from 'react';
+
+import { getPhotos } from '../services/Firebase';
 
 export default function usePhotos(user) {
     const [photos, setPhotos] = useState(null);
@@ -14,7 +15,6 @@ export default function usePhotos(user) {
                 }
             }
             getTimelinePhotos();
-        }, [user?.userId, user?.following])
+        }, [user?.userId, user?.following]);
     return { photos };
 }
- */

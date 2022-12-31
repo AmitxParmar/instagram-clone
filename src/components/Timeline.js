@@ -1,12 +1,14 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
+import React from 'react';
 import Skeleton from 'react-loading-skeleton';
+
 import LoggedInUserContext from '../context/LoggedInUser';
-import usePhotos from '../hooks/usePhotos'
-import Post from './post/index'
-import { useAuth } from "../hooks/AuthContext";
+import { useAuth } from '../hooks/AuthContext';
+import usePhotos from '../hooks/usePhotos';
+import Post from './post';
 
 const Timeline = () => {
-const {user}= useAuth()
+    const { user } = useAuth();
     const { userData: { following } = {} } = useContext(LoggedInUserContext);
 
     const { photos } = usePhotos(user);
@@ -23,6 +25,13 @@ const {user}= useAuth()
             ) : null}
         </div>
     );
-}
+};
 
 export default Timeline
+/* const Timeline = () => {
+    return (
+        <div>Timeline</div>
+    );
+}; 
+
+export default Timeline;*/

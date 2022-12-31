@@ -1,7 +1,8 @@
 /* eslint-disable no-nested-ternary */
-import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+
 import { getSuggestedProfiles } from '../../services/Firebase';
 import SuggestedProfile from './SuggestedProfile';
 
@@ -10,9 +11,11 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
 
     useEffect(() => {
         async function suggestedProfiles() {
-            const response = await getSuggestedProfiles(userId, following);
-            setProfiles(response);
+            /* const response = await  */
+            getSuggestedProfiles(userId, following)
+                .then(response => setProfiles(response));
         }
+        console.log("🚀 ~ file: Suggestions.js:19 ~ suggestedProfiles ~ getSuggestedProfiles", getSuggestedProfiles);
 
         if (userId) {
             suggestedProfiles();

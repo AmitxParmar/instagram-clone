@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import formatDistance from 'date-fns/formatDistance';
 import PropTypes from 'prop-types';
-import { formatDistance } from 'date-fns';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
 import AddComment from './AddComment';
 
 export default function Comments({ docId, comments: allComments, posted, commentInput }) {
@@ -38,7 +39,7 @@ export default function Comments({ docId, comments: allComments, posted, comment
                     </button>
                 )}
                 <p className="text-gray-base uppercase text-xs mt-2">
-                    {formatDistance(posted, new Date())} ago
+                    {formatDistance(posted, new Date(), { addSuffix: true })} ago
                 </p>
             </div>
             <AddComment

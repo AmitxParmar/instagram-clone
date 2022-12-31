@@ -11,6 +11,7 @@
     "@welldone-software/why-did-you-render": "^7.0.1",
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
+    "dotenv-webpack": "^8.0.1",
     "firebase": "^9.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,8 +23,12 @@
     "yarn-run-all": "^3.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
+    "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css --watch",
+    "react-scripts:start": "react-scripts start",
+    "react-scripts:dist": "react-scripts build",
+    "start": "run-p watch:css react-scripts:start",
+    "build": "run-s build:css react-scripts:dist",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
