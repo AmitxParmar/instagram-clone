@@ -63,7 +63,9 @@ export async function updateLoggedInUserFollowing(
 ) {
     const docRef = doc(db, "users", loggedInUserDocId.toLowerCase());
     updateDoc(docRef, {
-
+        following: isFollowingProfile ?
+            FieldValue.arrayRemove(profileId) :
+            FieldValue.arrayUnion(profileId)
     });
     console.log(FieldValue);
 
