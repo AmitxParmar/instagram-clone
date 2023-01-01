@@ -42,15 +42,16 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
+        setIsAuthenticated(true);
         localStorage.setItem("authUser", JSON.stringify(currentUser));
         console.log(
           "LocalStorage Saved! currentUserData return by onAuthStateChanged " /* + JSON.stringify(currentUser) */
         );
         setUser(currentUser);
-        setIsAuthenticated(true);
         console.log(`set user success` /* + JSON.stringify(currentUser) */);
       } else {
-        localStorage.removeItem("authUser");
+        localStorage.clear();
+        sessionStorage.clear();
         setUser(null);
         console.log(
           "user is null means not authenticated" + JSON.stringify(currentUser)

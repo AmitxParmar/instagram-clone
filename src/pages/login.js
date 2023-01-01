@@ -1,7 +1,8 @@
-import { memo, useState, useEffect } from "react";
-import { useNavigate, Link } from 'react-router-dom';
-import * as ROUTES from "../constants/Routes";
-import { useAuth } from "../hooks/AuthContext";
+import { memo, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import * as ROUTES from '../constants/Routes';
+import { useAuth } from '../hooks/AuthContext';
 
 const Login = () => {
     const { login, logout } = useAuth();
@@ -12,15 +13,15 @@ const Login = () => {
 
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
-
+    console.time();
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
             await login(email, password)
                 .then((response) => {
-                    navigate(ROUTES.DASHBOARD)
-                    sessionStorage.setItem('Auth_Token', response._tokenResponse.refreshToken)
-                })
+                    navigate(ROUTES.DASHBOARD);
+                    sessionStorage.setItem('Auth_Token_Login', response._tokenResponse.refreshToken);
+                });
         } catch (error) {
             const errorCode = error.code;
             setEmail('');
@@ -47,7 +48,7 @@ const Login = () => {
                     console.log(`Wrong Email or Password. ${errorCode}`);
                     break;
                 default:
-                    setError(error.message)
+                    setError(error.message);
                     console.log(`${error.message} ${errorCode}`);
                     break;
             }
@@ -58,10 +59,10 @@ const Login = () => {
         setTimeout(() => {
             if (error) {
                 setError("");
-                console.log("error reset")
+                console.log("error reset");
             }
         }, 10000);
-        document.title = "Login - Instagram"
+        document.title = "Login - Instagram";
     }, [error]);
     function handleLogout(e) {
         try {
@@ -134,6 +135,6 @@ const Login = () => {
             </div>
         </div >
     );
-}
+};
 
 export default memo(Login);

@@ -13,14 +13,17 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
         async function suggestedProfiles() {
             /* const response = await  */
             getSuggestedProfiles(userId, following)
-                .then(response => setProfiles(response));
+                .then(response => {
+                    console.log("🚀 ~ file: Suggestions.js:19 ~ suggestedProfiles ~ response", response);
+                    return setProfiles(response);
+                });
+
         }
-        console.log("🚀 ~ file: Suggestions.js:19 ~ suggestedProfiles ~ getSuggestedProfiles", getSuggestedProfiles);
 
         if (userId) {
             suggestedProfiles();
         }
-    }, [userId]);
+    }, [following, userId]);
     // hint: use the firebase service (call using userId)
     // getSuggestedProfiles
     // call the async function ^^^^ within useEffect

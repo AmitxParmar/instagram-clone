@@ -31,10 +31,10 @@ const SignUp = () => {
                     .then(async (response) => {
                         try {
                             const { user } = response;
-                            sessionStorage.setItem('Auth-Token', response._tokenResponse.refreshToken)
-                            console.log("Token Saved! " + response._tokenResponse.refreshToken)
-                            await setDisplayName(userName)
-                            console.log("updateDisplayNameDone!")
+                            sessionStorage.setItem('Auth_Token_SignUP', response._tokenResponse.refreshToken);
+                            console.log("Token Saved! " + response._tokenResponse.refreshToken);
+                            await setDisplayName(userName);
+                            console.log("updateDisplayNameDone!");
                             setDoc(doc(db, 'users', user.uid), {
                                 userId: user.uid,
                                 userName: userName.toLowerCase(),
@@ -46,16 +46,16 @@ const SignUp = () => {
                                 timestamp: serverTimestamp()
                             })
                                 .then((data) => {
-                                    alert("data updated!")
+                                    alert("data updated!");
                                     console.log("data added to database");
                                     console.log("Logged in");
-                                    navigate(ROUTES.DASHBOARD)
-                                    console.log("navigating to dashboard.... ")
-                                })
+                                    navigate(ROUTES.DASHBOARD);
+                                    console.log("navigating to dashboard.... ");
+                                });
                         } catch (e) {
-                            console.log(e.message + e.code)
+                            console.log(e.message + e.code);
                         }
-                    })
+                    });
             }
             catch (error) {
                 const errorCode = error.code;
@@ -86,7 +86,7 @@ const SignUp = () => {
                 }
             }
         } else {
-            setError("Username is Already Taken")
+            setError("Username is Already Taken");
             console.log("else block");
         }
     };
@@ -95,11 +95,11 @@ const SignUp = () => {
         const e = setTimeout(() => {
             if (error) {
                 setError("");
-                console.log("Error reset")
+                console.log("Error reset");
             }
         }, 8000);
         clearTimeout(e);
-        document.title = "Sign Up - Instagram"
+        document.title = "Sign Up - Instagram";
     }, [error]);
 
     return (
@@ -177,7 +177,7 @@ const SignUp = () => {
             </div>
         </div>
     );
-}
+};
 
 export default SignUp;
 

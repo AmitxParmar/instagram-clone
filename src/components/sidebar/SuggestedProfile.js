@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -52,10 +51,10 @@ export default function SuggestedProfile({
     ) : null;
 }
 
-SuggestedProfile.propTypes = {
+/* SuggestedProfile.propTypes = {
     profileDocId: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
     profileId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     loggedInUserDocId: PropTypes.string.isRequired
-};
+}; */

@@ -6,7 +6,7 @@ import { DEFAULT_IMAGE_PATH } from '../../constants/Paths';
 
 
 const User = ({ userName, fullName }) => {
-
+    const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
     return !userName || !fullName ?
         (
             <Skeleton count={1} height={61} />
@@ -25,7 +25,7 @@ const User = ({ userName, fullName }) => {
                 </div>
                 <div className='col-span-3'>
                     <p className='font-bold text-sm'>
-                        {fullName}
+                        {capitalize(fullName)}
                     </p>
                 </div>
             </Link>

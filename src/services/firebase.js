@@ -1,4 +1,4 @@
-import { collection, db, doc, getDoc, getDocs, limit, query, where } from '../lib/FirebaseConfig';
+import { collection, db, doc, FieldValue, getDoc, getDocs, limit, query, updateDoc, where } from '../lib/FirebaseConfig';
 
 const colRefUser = collection(db, "users");
 
@@ -6,33 +6,35 @@ export async function doesUserNameExist(userName) {
     const querySnapshot = await getDocs(
         query(colRefUser, where("userName", "==", userName.toLowerCase()), limit(1))
     );
-    console.log("doesUserNameExists check " + JSON.stringify(querySnapshot));
+
     return !querySnapshot.empty;
 }
 // NOTE: Testing done
-export async function getUserByUserName(userName) {
-    const q = query(colRefUser, where("userName", "==", userName.toLowerCase()));
-    const users = await getDocs(q);
-    return users.docs.map((item) => ({
-        ...item.data(),
-        docId: item.id,
-    }));
-}
-console.log(JSON.stringify(getUserByUserName("jack")));
+export const getUserByUserName = async (userName) => {
+    let user;
+    const q = query(colRefUser, where("userName", "==", userName));
+    await getDocs(q)
+        .then((users) => {
+            user = { ...users.docs[0].data(), docId: users.docs[0].id };
+        });
+    console.log('user check towards the end', user);
+    return user;
+};
 
 // get user from the firestore where userId === userId (passed from the auth)
 
 export async function getUserByUserId(userId) {
-    let userIDData;
+    //let userIDData;
     const docRef = doc(db, "users", userId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         //userIDData = [{ ...doc.data(), id: doc.id }]
-        userIDData = { ...docSnap.data(), docId: docSnap.id };
+        return { ...docSnap.data(), docId: docSnap.id };
     } else {
-        console.log("no such userbyuserid found");
+        alert('Services:: No such user ID found!');
+        console.log("no such UserByUserId found");
     }
-    return userIDData;
+
 }
 
 // Check all conditions before limit results
@@ -50,7 +52,7 @@ export async function getSuggestedProfiles(userId, following) {
         });
     } else {
         const docSnapshot = await getDocs(
-            query(colRefUser, where("userId", "!=", userId), limit(1))
+            query(colRefUser, where("userId", "!=", userId), limit(10))
         );
         docSnapshot.forEach((doc) => {
             suggestions.push({ ...doc.data(), docId: doc.id });
@@ -62,21 +64,21 @@ export async function getSuggestedProfiles(userId, following) {
 }
 
 export async function updateLoggedInUserFollowing(
-    loggedinUserDocId, // currently logged in user document id (karl's profile)
+    loggedInUserDocId, // currently logged in user document id (karl's profile)
     profile, // the user that karl requests to follow
     isFollowingProfile // true/false (am i currently following this person?)
 ) {
-
+    const docRef = doc(db, "users", loggedInUserDocId.toLowerCase());
+    updateDoc(docRef);
+    console.log(FieldValue);
 
 }
 
 export async function getPhotos(userId, following) {
     // [5,4,2] => following
     const colRefPhotos = collection(db, "photos");
-    const querySnapshot = await getDocs(
-        query(colRefPhotos, where("userId", "in", following))
-    );
-
+    const q = query(colRefPhotos, where("userId", "in", following));
+    const querySnapshot = await getDocs(q);
     return querySnapshot.doc.map((photo) => ({
         ...photo.data(),
         docId: photo.id,

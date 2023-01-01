@@ -14,6 +14,7 @@ const Profile = () => {
         async function checkUserExists() {
             /*  const [user] = await  */
             getUserByUserName(userName).then((user) => {
+                console.log("🚀 ~ file: Profile.js:17 ~ getUserByUserName ~ user", user);
                 if (user?.userId) {
                     setUser(user);
                 } else {

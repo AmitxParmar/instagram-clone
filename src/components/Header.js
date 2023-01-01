@@ -1,4 +1,3 @@
-import { PropTypes } from 'prop-types';
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -134,7 +133,7 @@ const Header = () => {
   );
 };
 
-Header.propTypes = {
+/* Header.propTypes = {
   photosCount: PropTypes.number.isRequired,
   followerCount: PropTypes.number.isRequired,
   setFollowerCount: PropTypes.func.isRequired,
@@ -146,6 +145,6 @@ Header.propTypes = {
     followers: PropTypes.array,
     following: PropTypes.array,
   }).isRequired,
-};
+}; */
 
 export default Header;

@@ -28,10 +28,11 @@ const Timeline = () => {
 };
 
 export default Timeline
+
 /* const Timeline = () => {
     return (
         <div>Timeline</div>
     );
-}; 
+};
 
-export default Timeline;*/
+export default Timeline; */
