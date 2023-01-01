@@ -10,9 +10,10 @@ import useUser from '../hooks/useUser';
 
 const Dashboard = () => {
     const { user } = useAuth();
-    const { userData, setActiveUser } = useUser(user.uid);
     // console.log(userData);
-
+    console.log(user);
+    const { userData, setActiveUser } = useUser(user.uid);
+    console.log(userData);
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
@@ -20,14 +21,26 @@ const Dashboard = () => {
     return (
         <LoggedInUserContext.Provider value={{ userData, setActiveUser }}>
             <div className="bg-gray-background">
-                <Header />
-                <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
-                    <Timeline />
-                    <Sidebar />
-                </div>
+
+                {userData ? (<>
+                    <Header />
+
+                    <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
+                        <Timeline />
+                        <Sidebar />
+                    </div></>
+                ) : (
+                    <div>Loading.....................</div>
+                )}
+
             </div>
         </LoggedInUserContext.Provider>
-    );
+    ); /* : (
+        <div>
+            Loading.........
+        </div>
+    ); */
+
 };
 
 Dashboard.propTypes = {

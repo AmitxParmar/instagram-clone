@@ -11,19 +11,15 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
 
     useEffect(() => {
         async function suggestedProfiles() {
-            /* const response = await  */
-            getSuggestedProfiles(userId, following)
+            await getSuggestedProfiles(userId, following)
                 .then(response => {
-                    console.log("🚀 ~ file: Suggestions.js:19 ~ suggestedProfiles ~ response", response);
                     return setProfiles(response);
                 });
-
         }
 
-        if (userId) {
-            suggestedProfiles();
-        }
+        if (userId) suggestedProfiles();
     }, [following, userId]);
+
     // hint: use the firebase service (call using userId)
     // getSuggestedProfiles
     // call the async function ^^^^ within useEffect
@@ -42,6 +38,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
                     <SuggestedProfile
                         key={profile.docId}
                         profileDocId={profile.docId}
+                        fullName={profile.fullName}
                         userName={profile.userName}
                         profileId={profile.userId}
                         userId={userId}

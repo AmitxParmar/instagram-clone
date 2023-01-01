@@ -6,7 +6,6 @@ export async function doesUserNameExist(userName) {
     const querySnapshot = await getDocs(
         query(colRefUser, where("userName", "==", userName.toLowerCase()), limit(1))
     );
-
     return !querySnapshot.empty;
 }
 // NOTE: Testing done
@@ -17,7 +16,6 @@ export const getUserByUserName = async (userName) => {
         .then((users) => {
             user = { ...users.docs[0].data(), docId: users.docs[0].id };
         });
-    console.log('user check towards the end', user);
     return user;
 };
 
@@ -32,9 +30,8 @@ export async function getUserByUserId(userId) {
         return { ...docSnap.data(), docId: docSnap.id };
     } else {
         alert('Services:: No such user ID found!');
-        console.log("no such UserByUserId found");
+        console.log("No such user ID found!!");
     }
-
 }
 
 // Check all conditions before limit results
@@ -47,8 +44,6 @@ export async function getSuggestedProfiles(userId, following) {
         );
         docSnapshot.forEach((doc) => {
             suggestions.push({ ...doc.data(), docId: doc.id });
-            // doc.data() is never undefined for query doc snapshots
-            console.log('suggested pRofiles', doc.id, " => ", doc.data());
         });
     } else {
         const docSnapshot = await getDocs(
@@ -56,8 +51,6 @@ export async function getSuggestedProfiles(userId, following) {
         );
         docSnapshot.forEach((doc) => {
             suggestions.push({ ...doc.data(), docId: doc.id });
-            // doc.data() is never undefined for query doc snapshots
-            console.log('suggested pRofiles', doc.id, " => ", doc.data());
         });
     }
     return suggestions;
@@ -69,7 +62,9 @@ export async function updateLoggedInUserFollowing(
     isFollowingProfile // true/false (am i currently following this person?)
 ) {
     const docRef = doc(db, "users", loggedInUserDocId.toLowerCase());
-    updateDoc(docRef);
+    updateDoc(docRef, {
+
+    });
     console.log(FieldValue);
 
 }

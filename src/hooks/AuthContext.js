@@ -48,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
           "LocalStorage Saved! currentUserData return by onAuthStateChanged " /* + JSON.stringify(currentUser) */
         );
         setUser(currentUser);
-        console.log(`set user success` /* + JSON.stringify(currentUser) */);
+        console.log(`set user success`);
       } else {
         localStorage.clear();
         sessionStorage.clear();

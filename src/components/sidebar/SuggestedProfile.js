@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import LoggedInUserContext from '../../context/LoggedInUser';
 import { getUserByUserId, updateFollowedUserFollowers, updateLoggedInUserFollowing } from '../../services/Firebase';
 
+
 export default function SuggestedProfile({
     profileDocId,
+    fullName,
     userName,
     profileId,
     userId,
@@ -13,7 +15,7 @@ export default function SuggestedProfile({
 }) {
     const [followed, setFollowed] = useState(false);
     const { setActiveUser } = useContext(LoggedInUserContext);
-
+    const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
     async function handleFollowUser() {
         setFollowed(true);
         await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
@@ -37,7 +39,7 @@ export default function SuggestedProfile({
                     }}
                 />
                 <Link to={`/p/${userName}`}>
-                    <p className="font-bold text-sm">{userName}</p>
+                    <p className="font-bold text-sm">{capitalize(fullName)}</p>
                 </Link>
             </div>
             <button

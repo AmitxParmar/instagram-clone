@@ -70,7 +70,7 @@ const Header = () => {
                   onClick={() => handleLogout()}
                   onKeyDown={(event) => {
                     if (event.key === "Enter") {
-                      logout();
+                      handleLogout();
                       navigate(ROUTES.LOGIN);
                     }
                   }}

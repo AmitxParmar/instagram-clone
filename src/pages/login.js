@@ -13,7 +13,7 @@ const Login = () => {
 
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
-    console.time();
+
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
