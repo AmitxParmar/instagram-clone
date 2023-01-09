@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-/* import { useState, useEffect, useContext } from 'react';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import PropTypes from 'prop-types';
+import { useContext, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+
+import { DEFAULT_IMAGE_PATH } from '../../constants/Paths';
+import UserContext from '../../context/User';
 import useUser from '../../hooks/useUser';
 import { isUserFollowingProfile, toggleFollow } from '../../services/Firebase';
-import UserContext from '../../context/User';
-import { DEFAULT_IMAGE_PATH } from '../../constants/Paths';
 
 export default function Header({
     photosCount,
@@ -30,19 +33,19 @@ export default function Header({
         setFollowerCount({
             followerCount: isFollowingProfile ? followerCount - 1 : followerCount + 1
         });
-        await toggleFollow(isFollowingProfile, userDB.docId, profileDocId, profileUserId, userDB.userId);
+        await toggleFollow(isFollowingProfile, userData.docId, profileDocId, profileUserId, userData.userId);
     };
 
     useEffect(() => {
         const isLoggedInUserFollowingProfile = async () => {
-            const isFollowing = await isUserFollowingProfile(userDB.userName, profileUserId);
+            const isFollowing = await isUserFollowingProfile(userData.userName, profileUserId);
             setIsFollowingProfile(!!isFollowing);
         };
 
-        if (userDB?.userName && profileUserId) {
+        if (userData?.userName && profileUserId) {
             isLoggedInUserFollowingProfile();
         }
-    }, [userDB?.userName, profileUserId]);
+    }, [userData?.userName, profileUserId]);
 
     return (
         <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
@@ -122,4 +125,3 @@ Header.propTypes = {
         following: PropTypes.array
     }).isRequired
 };
- */

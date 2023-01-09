@@ -1,11 +1,11 @@
+import './styles/main.css';
+
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
-import FirebaseContext from './context/Firebase'
-import { app, /* FieldValue */ } from "./lib/FirebaseConfig"
-import "./styles/main.css"
 
-const rootElement = document.getElementById('root')
+import App from './App';
+
+const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
@@ -33,7 +33,7 @@ for (let i in names) {
 
 
 
-//*  */**************************************************************************************************
+/*  **************************************************************************************************
 
 //  => Client Side rendered App: React (cra);
 //  ==> Database Which is Firebase

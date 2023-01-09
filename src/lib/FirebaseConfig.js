@@ -9,6 +9,8 @@ import {
 } from 'firebase/auth';
 import {
     addDoc,
+    arrayRemove,
+    arrayUnion,
     collection,
     doc,
     FieldValue,
@@ -40,4 +42,8 @@ const db = getFirestore();
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-export { app, db, storage, auth, FieldValue, updateDoc, collection, serverTimestamp, doc, query, addDoc, where, getFirestore, setDoc, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, limit, getDocs, getDoc, onSnapshot };
+export {
+    app, db, storage, auth, FieldValue, updateDoc, collection, serverTimestamp, doc, query, addDoc, where, getFirestore, setDoc, updateProfile, createUserWithEmailAndPassword, signInWithEmailAndPassword, arrayUnion,
+    arrayRemove,
+    signOut, onAuthStateChanged, limit, getDocs, getDoc, onSnapshot
+};

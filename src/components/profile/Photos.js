@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton';
 
-export default function Photos({photos}){
-    
+export default function Photos({ photos }) {
+    <Skeleton />;
 }
+
+Photos.PropTypes;

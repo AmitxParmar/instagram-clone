@@ -1,4 +1,6 @@
 /* eslint-disable no-nested-ternary */
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';

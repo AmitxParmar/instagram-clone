@@ -1,21 +1,23 @@
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { useContext } from 'react';
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 
-import LoggedInUserContext from '../context/LoggedInUser';
-import { useAuth } from '../hooks/AuthContext';
+import FirestoreContext from '../context/LoggedInUser';
 import usePhotos from '../hooks/usePhotos';
 import Post from './post';
 
 const Timeline = () => {
-    const { user } = useAuth();
-    const { userData: { following } = {} } = useContext(LoggedInUserContext);
+    const { userData: { following } = {}, userData } = useContext(FirestoreContext);
+    console.log("🚀 ~ file: Timeline.js:15 ~ Timeline ~ userData: {Following}", following);
 
-    const { photos } = usePhotos(user);
+    const { photos } = usePhotos(userData);
+    console.log("🚀 ~ file: Timeline.js:18 ~ Timeline ~ photos", photos);
 
     return (
         <div className='container col-span-2'>
-            {following === undefined ? (
+            {following === undefined || null ? (
                 <Skeleton count={2} width={640} height={500}
                     className='mb-5' />
             ) : following.length === 0 ? (

@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import LoggedInUserContext from '../../context/LoggedInUser';
+import FirestoreContext from '../../context/LoggedInUser';
 import { getUserByUserId, updateFollowedUserFollowers, updateLoggedInUserFollowing } from '../../services/Firebase';
 
 
@@ -14,17 +14,18 @@ export default function SuggestedProfile({
     loggedInUserDocId
 }) {
     const [followed, setFollowed] = useState(false);
-    const { setActiveUser } = useContext(LoggedInUserContext);
+    const { setActiveUser } = useContext(FirestoreContext);
     const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
     async function handleFollowUser() {
         setFollowed(true);
         await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
         await updateFollowedUserFollowers(profileDocId, userId, false);
         /*  const [user] = await */
-        getUserByUserId(userId).then((update) => {
-            setActiveUser(update);
-        }
-        );
+        await getUserByUserId(userId)
+            .then((update) => {
+                setActiveUser(update);
+            }
+            );
     }
 
     return !followed ? (

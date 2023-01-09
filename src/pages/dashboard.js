@@ -4,22 +4,20 @@ import { useEffect } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/sidebar';
 import Timeline from '../components/Timeline';
-import LoggedInUserContext from '../context/LoggedInUser';
+import FirestoreContext from '../context/LoggedInUser';
 import { useAuth } from '../hooks/AuthContext';
 import useUser from '../hooks/useUser';
 
 const Dashboard = () => {
     const { user } = useAuth();
     // console.log(userData);
-    console.log(user);
     const { userData, setActiveUser } = useUser(user.uid);
-    console.log(userData);
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
 
     return (
-        <LoggedInUserContext.Provider value={{ userData, setActiveUser }}>
+        <FirestoreContext.Provider value={{ userData, setActiveUser }}>
             <div className="bg-gray-background">
 
                 {userData ? (<>
@@ -34,7 +32,7 @@ const Dashboard = () => {
                 )}
 
             </div>
-        </LoggedInUserContext.Provider>
+        </FirestoreContext.Provider>
     ); /* : (
         <div>
             Loading.........

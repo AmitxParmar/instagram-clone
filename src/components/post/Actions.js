@@ -1,30 +1,39 @@
-import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import FirebaseContext from '../../context/Firebase';
-import UserContext from '../../context/User';
+import { useState } from 'react';
+
+import { useAuth } from '../../hooks/AuthContext';
+import { arrayRemove, arrayUnion, db, doc, updateDoc } from '../../lib/FirebaseConfig';
 
 export default function Actions({ docId, totalLikes, likedPhoto, handleFocus }) {
-    const {
-        user: { uid: userId }
-    } = useContext(UserContext);
+    const { user: { uid: userId } } = useAuth();
+    console.log("🚀 ~ file: Actions.js:10 ~ Actions ~ userId", userId);
 
     const [toggleLiked, setToggleLiked] = useState(likedPhoto);
     const [likes, setLikes] = useState(totalLikes);
-    const { firebase, FieldValue } = useContext(FirebaseContext);
+
+    /* const { firebase, FieldValue } = useContext(FirebaseContext); */
 
     const handleToggleLiked = async () => {
         setToggleLiked((toggleLiked) => !toggleLiked);
-
-        await firebase
-            .firestore()
-            .collection('photos')
-            .doc(docId)
-            .update({
-                likes: toggleLiked ? FieldValue.arrayRemove(userId) : FieldValue.arrayUnion(userId)
-            });
-
+        const docRef = doc(db, "photos", docId);
+        updateDoc(docRef, {
+            likes: toggleLiked ?
+                arrayRemove(userId) :
+                arrayUnion(userId)
+        });
         setLikes((likes) => (toggleLiked ? likes - 1 : likes + 1));
     };
+    /*  =================== Firebase Version 8 ==================
+        
+        await firebase
+        .firestore()
+        .collection('photos')
+        .doc(docId)
+        .update({
+        likes: toggleLiked ? arrayRemove(userId) : arrayUnion(userId)
+        }); 
+
+        ==========================================================*/
 
     return (
         <>

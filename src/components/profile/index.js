@@ -1,8 +1,9 @@
-/* import { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useReducer } from 'react';
+
+import { getUserPhotosByUserId } from '../../services/Firebase';
 import Header from './Header';
 import Photos from './Photos';
-import { getUserPhotosByUserId } from '../../services/Firebase';
 
 export default function Profile({ user }) {
     const reducer = (state, newState) => ({ ...state, ...newState });
@@ -26,7 +27,7 @@ export default function Profile({ user }) {
     }, [user.userName, user]);
 
     return (
-        <>
+        photosCollection ? (<>
             <Header
                 photosCount={photosCollection ? photosCollection.length : 0}
                 profile={profile}
@@ -34,7 +35,9 @@ export default function Profile({ user }) {
                 setFollowerCount={dispatch}
             />
             <Photos photos={photosCollection} />
-        </>
+        </>) : (<>
+            <h1> Loading Ho rha hai Bro...... </h1>
+        </>)
     );
 }
 
@@ -49,4 +52,3 @@ Profile.propTypes = {
         userName: PropTypes.string
     })
 };
- */

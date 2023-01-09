@@ -1,9 +1,9 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-import PropTypes from 'prop-types'
-import { Link } from
-    'react-router-dom';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
+/* eslint-disable jsx-a11y/img-redundant-alt */
 export default function Header({ userName }) {
+    // NOTE: Do something 
     return (
         <div className='flex border-b border-gray-primary h-4 p-4 py-8'>
             <div className='flex items-center'>
@@ -20,3 +20,7 @@ export default function Header({ userName }) {
         </div>
     );
 }
+
+Header.propTypes = {
+    userName: PropTypes.string.isRequired
+};

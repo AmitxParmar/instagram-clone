@@ -13,26 +13,27 @@ const Profile = () => {
     useEffect(() => {
         async function checkUserExists() {
             /*  const [user] = await  */
-            getUserByUserName(userName).then((user) => {
-                console.log("🚀 ~ file: Profile.js:17 ~ getUserByUserName ~ user", user);
-                if (user?.userId) {
-                    setUser(user);
-                } else {
-                    navigate(ROUTES.NOT_FOUND);
-                }
-            });
+            await getUserByUserName(userName)
+                .then((user) => {
+                    console.log("🚀 ~ file: Profile.js:17 ~ getUserByUserName ~ user", user);
+                    if (user?.userId) {
+                        setUser(user);
+                    } else {
+                        navigate(ROUTES.NOT_FOUND);
+                    }
+                });
         }
         checkUserExists();
     }, [userName, navigate]);
 
-    return user.userName ? (
+    return user ? (
         <div className="bg-gray-background">
             <Header />
             <div className="mx-auto max-w-screen-lg">
                 <UserProfile user={user} />
             </div>
         </div>
-    ) : null;
+    ) : (<>Loading</>);
 };
 
 export default Profile;

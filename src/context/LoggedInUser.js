@@ -1,4 +1,4 @@
 import { createContext } from 'react';
 
-const LoggedInUserContext = createContext(null);
-export default LoggedInUserContext;
+const FirestoreContext = createContext(null);
+export default FirestoreContext;

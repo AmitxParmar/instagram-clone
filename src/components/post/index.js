@@ -1,10 +1,11 @@
-import { useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useRef } from 'react';
+
+import Actions from './Actions';
+import Comments from './Comments';
+import Footer from './Footer';
 import Header from './Header';
 import Image from './Image';
-import Actions from './Actions';
-import Footer from './Footer';
-import Comments from './Comments';
 
 export default function Post({ content }) {
     const commentInput = useRef(null);
@@ -13,23 +14,24 @@ export default function Post({ content }) {
     // components
     // -> header, image, actions (like & comment icons), footer, comments
     return (
-        <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
-            <Header userName={content.userName} />
-            <Image src={content.imageSrc} caption={content.caption} />
-            <Actions
-                docId={content.docId}
-                totalLikes={content.likes.length}
-                likedPhoto={content.userLikedPhoto}
-                handleFocus={handleFocus}
-            />
-            <Footer caption={content.caption} userName={content.userName} />
-            <Comments
-                docId={content.docId}
-                comments={content.comments}
-                posted={content.dateCreated}
-                commentInput={commentInput}
-            />
-        </div>
+        content ? (
+            <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
+                <Header userName={content.userName} />
+                <Image src={content.imageSrc} caption={content.caption} />
+                {content ? (<Actions
+                    docId={content.docId}
+                    totalLikes={content.likes.length}
+                    likedPhoto={content.userLikedPhoto}
+                    handleFocus={handleFocus}
+                />) : (<>action loading.......</>)}
+                <Footer caption={content.caption} userName={content.userName} />
+                <Comments
+                    docId={content.docId}
+                    comments={content.comments}
+                    posted={content.dateCreated}
+                    commentInput={commentInput}
+                />
+            </div>) : (<>Loading......Post...</>)
     );
 }
 

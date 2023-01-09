@@ -3,19 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths';
 import * as ROUTES from '../constants/Routes';
-import LoggedInUserContext from '../context/LoggedInUser';
+import FirestoreContext from '../context/LoggedInUser';
 import { useAuth } from '../hooks/AuthContext';
 
 //import useUser from '../hooks/useUser'
 
 const Header = () => {
-  // NOTE: use LoggedInUserContext when Required Firestore Data
+  // NOTE: use FirestoreContext when Required Firestore Data
 
-  const { userData } = useContext(LoggedInUserContext);
-  console.log("🚀 ~ file: Header.js:15 ~ Header ~ userData", userData);
+  const { userData } = useContext(FirestoreContext);
 
   const { user, logout, isAuthenticated } = useAuth();
-  console.log("🚀 ~ file: Header.js:16 ~ Header ~ isAuthenticated", isAuthenticated);
 
   const navigate = useNavigate();
 

@@ -1,28 +1,31 @@
-import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import FirebaseContext from '../../context/Firebase';
-import UserContext from '../../context/User';
+import { useState } from 'react';
+
+import { useAuth } from '../../hooks/AuthContext';
+import { arrayUnion, db, doc, updateDoc } from '../../lib/FirebaseConfig';
 
 export default function AddComment({ docId, comments, setComments, commentInput }) {
     const [comment, setComment] = useState('');
-    const { firebase, FieldValue } = useContext(FirebaseContext);
-    const {
-        user: { displayName }
-    } = useContext(UserContext);
+
+    const { user: { displayName } } = useAuth();
 
     const handleSubmitComment = (event) => {
         event.preventDefault();
 
         setComments([...comments, { displayName, comment }]);
         setComment('');
-
-        return firebase
-            .firestore()
-            .collection('photos')
-            .doc(docId)
-            .update({
-                comments: FieldValue.arrayUnion({ displayName, comment })
-            });
+        const docRef = doc(db, "photos", docId);
+        updateDoc(docRef, {
+            comments:
+                arrayUnion({ displayName, comment })
+        });
+        /*     return firebase
+        .firestore()
+        .collection('photos')
+        .doc(docId)
+        .update({
+        comments: FieldValue.arrayUnion({ displayName, comment })
+              }); */
     };
 
     return (
