@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { DEFAULT_IMAGE_PATH } from '../../constants/Paths';
 
 
-const User = ({ userName, fullName }) => {
+const User = ({ userName, fullName, profilePic }) => {
     const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
     return !userName || !fullName ?
         (
@@ -18,8 +18,8 @@ const User = ({ userName, fullName }) => {
                 <div className='flex items-center justify-between col-span-1'>
                     <img
                         className='rounded-full w-16 flex mr-3'
-                        src={`/images/avatars/${userName}.jpg`}
-                        alt=""
+                        src={profilePic}
+                        alt={`${userName}'s profile pic`}
                         onError={(e) => {
                             e.target.src = DEFAULT_IMAGE_PATH;
                         }}

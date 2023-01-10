@@ -8,30 +8,31 @@ import Header from './Header';
 import Image from './Image';
 
 export default function Post({ content }) {
+    const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
     const commentInput = useRef(null);
     const handleFocus = () => commentInput.current.focus();
 
     // components
     // -> header, image, actions (like & comment icons), footer, comments
     return (
-        content ? (
-            <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
-                <Header userName={content.userName} />
-                <Image src={content.imageSrc} caption={content.caption} />
-                {content ? (<Actions
-                    docId={content.docId}
-                    totalLikes={content.likes.length}
-                    likedPhoto={content.userLikedPhoto}
-                    handleFocus={handleFocus}
-                />) : (<>action loading.......</>)}
-                <Footer caption={content.caption} userName={content.userName} />
-                <Comments
-                    docId={content.docId}
-                    comments={content.comments}
-                    posted={content.dateCreated}
-                    commentInput={commentInput}
-                />
-            </div>) : (<>Loading......Post...</>)
+
+        <div className="rounded col-span-4 border bg-white border-gray-primary mb-12">
+            <Header userName={capitalize(content.userName)} />
+            <Image src={content.imageSrc} caption={capitalize(content.caption)} />
+            <Actions
+                docId={content.docId}
+                totalLikes={content.likes.length}
+                likedPhoto={content.userLikedPhoto}
+                handleFocus={handleFocus}
+            />
+            <Footer caption={capitalize(content.caption)} userName={capitalize(content.userName)} />
+            <Comments
+                docId={content.docId}
+                comments={content.comments}
+                posted={content.dateCreated}
+                commentInput={commentInput}
+            />
+        </div>
     );
 }
 

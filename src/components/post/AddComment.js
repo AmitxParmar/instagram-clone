@@ -19,17 +19,10 @@ export default function AddComment({ docId, comments, setComments, commentInput 
             comments:
                 arrayUnion({ displayName, comment })
         });
-        /*     return firebase
-        .firestore()
-        .collection('photos')
-        .doc(docId)
-        .update({
-        comments: FieldValue.arrayUnion({ displayName, comment })
-              }); */
     };
 
     return (
-        <div className="border-t border-gray-primary">
+        <div className="border-b border-t border-gray-primary">
             <form
                 className="flex justify-between pl-0 pr-5"
                 method="POST"

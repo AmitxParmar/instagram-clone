@@ -147,6 +147,7 @@ export async function getUserPhotosByUserId(userId) {
         docId: photo.id
     }));
 }
+
 /* ================================================================= */
 /*  ===================== Firebase before version 9 ===================== 
 await firebase

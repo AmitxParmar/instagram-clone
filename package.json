@@ -23,8 +23,8 @@
     "yarn-run-all": "^3.1.1"
   },
   "scripts": {
-    "build:css": "postcss src/styles/tailwind.css -o src/styles/main.css",
-    "watch:css": "postcss src/styles/tailwind.css -o src/styles/main.css --watch",
+    "build:css": "postcss ./src/styles/tailwind.css -o src/styles/main.css",
+    "watch:css": "postcss ./src/styles/tailwind.css -o src/styles/main.css --watch",
     "react-scripts:start": "react-scripts start",
     "react-scripts:dist": "react-scripts build",
     "start": "run-p watch:css react-scripts:start",

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 /* eslint-disable jsx-a11y/img-redundant-alt */
-export default function Header({ userName }) {
+export default function Header({ userName, profilePic }) {
     // NOTE: Do something 
     return (
         <div className='flex border-b border-gray-primary h-4 p-4 py-8'>
@@ -11,7 +11,7 @@ export default function Header({ userName }) {
 
                     <img
                         className="rounded-full h-8 w-8 flex mr-3"
-                        src={`/images/avatars/${userName}.jpg`}
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsz6xuzmNTbeymrzVM1ngEZLtspfI5rqbxbSwvUx6auQ&s"
                         alt={`${userName} profile picture`}
                     />
                     <p className='font-bold'>{userName}</p>

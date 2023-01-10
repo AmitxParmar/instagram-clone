@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AddComment from './AddComment';
 
 export default function Comments({ docId, comments: allComments, posted, commentInput }) {
+
     const [comments, setComments] = useState(allComments);
     const [commentsSlice, setCommentsSlice] = useState(3);
 
@@ -15,7 +16,8 @@ export default function Comments({ docId, comments: allComments, posted, comment
 
     return (
         <>
-            <div className="p-4 pt-1 pb-4">
+
+            <div className="p-4 pt-1 pb-4 mt-2">
                 {comments.slice(0, commentsSlice).map((item) => (
                     <p key={`${item.comment}-${item.displayName}`} className="mb-1">
                         <Link to={`/p/${item.displayName}`}>
@@ -39,7 +41,7 @@ export default function Comments({ docId, comments: allComments, posted, comment
                     </button>
                 )}
                 <p className="text-gray-base uppercase text-xs mt-2">
-                    {formatDistance(posted, new Date(), { addSuffix: true })} ago
+                    {formatDistance(posted, new Date(), { addSuffix: true })}
                 </p>
             </div>
             <AddComment
@@ -48,6 +50,7 @@ export default function Comments({ docId, comments: allComments, posted, comment
                 setComments={setComments}
                 commentInput={commentInput}
             />
+
         </>
     );
 }

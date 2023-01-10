@@ -7,7 +7,7 @@ import { useAuth } from '../hooks/AuthContext';
 const Login = () => {
     const { login, logout } = useAuth();
     const navigate = useNavigate();
-
+    console.log(Date.now());
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 

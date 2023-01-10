@@ -3,17 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { DEFAULT_IMAGE_PATH } from '../constants/Paths';
 import * as ROUTES from '../constants/Routes';
-import FirestoreContext from '../context/LoggedInUser';
 import { useAuth } from '../hooks/AuthContext';
-
-//import useUser from '../hooks/useUser'
+import useUser from '../hooks/useUser';
 
 const Header = () => {
   // NOTE: use FirestoreContext when Required Firestore Data
 
-  const { userData } = useContext(FirestoreContext);
+  //const { userData } = useContext(FirestoreContext);
 
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user: loggedInUser, logout, isAuthenticated } = useAuth();
+  const { userData } = useUser(loggedInUser?.uid);
+
 
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const Header = () => {
             </h1>
           </div>
           <div className="text-gray-700 text-center flex items-center align-items">
-            {isAuthenticated || user ? (
+            {loggedInUser ? (
               <>
                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                   <svg
@@ -89,12 +89,12 @@ const Header = () => {
                   </svg>
                 </button>
 
-                {user && (
+                {userData && (
                   <div className="flex items-center cursor-pointer">
                     <Link to={`/p/${userData?.userName}`}>
                       <img
                         className="rounded-full h-8 w-8 flex"
-                        src={`/images/avatars/${userData?.userName}.jpg`}
+                        src={userData?.profilePic}
                         alt={`${userData?.userName} profile`}
                         onError={(e) => {
                           e.target.src = DEFAULT_IMAGE_PATH;
@@ -130,19 +130,5 @@ const Header = () => {
     </header>
   );
 };
-
-/* Header.propTypes = {
-  photosCount: PropTypes.number.isRequired,
-  followerCount: PropTypes.number.isRequired,
-  setFollowerCount: PropTypes.func.isRequired,
-  profile: PropTypes.shape({
-    docId: PropTypes.string,
-    userId: PropTypes.string,
-    fullName: PropTypes.string,
-    userName: PropTypes.string,
-    followers: PropTypes.array,
-    following: PropTypes.array,
-  }).isRequired,
-}; */
 
 export default Header;
