@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import PropTypes from 'prop-types';
@@ -10,6 +9,7 @@ import UserContext from '../../context/User';
 import useUser from '../../hooks/useUser';
 import { isUserFollowingProfile, toggleFollow } from '../../services/Firebase';
 
+/* eslint-disable jsx-a11y/img-redundant-alt */
 export default function Header({
     photosCount,
     followerCount,
@@ -20,6 +20,7 @@ export default function Header({
         fullName,
         followers,
         following,
+        profilePic,
         userName: profileUsername
     }
 }) {
@@ -54,7 +55,7 @@ export default function Header({
                     <img
                         className="rounded-full h-40 w-40 flex"
                         alt={`${fullName} profile picture`}
-                        src={`/images/avatars/${profileUsername}.jpg`}
+                        src={profilePic}
                         onError={(e) => {
                             e.target.src = DEFAULT_IMAGE_PATH;
                         }}

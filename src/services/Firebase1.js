@@ -35,6 +35,9 @@ export const getUserByUserName = async (userName) => {
     await getDocs(q)
         .then((users) => {
             user = { ...users.docs[0].data(), docId: users.docs[0].id };
+        })
+        .catch((err) => {
+            console.error('No Such User Found:', err);
         });
     return user;
 };

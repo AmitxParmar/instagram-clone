@@ -15,9 +15,7 @@ import {
 // importing firebase functions and initialized database and authentication from the same file decreases complexity.
 export const AuthContextProvider = ({ children }) => {
   // state storage currently logged user's object in state.
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("authUser"))
-  );
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("authUser")));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   //main signup function takes email and password from the user and returns signed in user's object containing email, displayName and some other information.
@@ -28,7 +26,6 @@ export const AuthContextProvider = ({ children }) => {
   const setDisplayName = (name) => {
     updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: "../images/users/raphael/1.jpg",
     }).catch((error) => {
       console.log(error.message);
     });
@@ -43,7 +40,7 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setIsAuthenticated(true);
-        localStorage.setItem("authUser", JSON.stringify(currentUser));
+        localStorage.setItem("authUser", JSON.stringify({ ...currentUser, isAuthenticated: true }));
         console.log(
           "LocalStorage Saved! currentUserData return by onAuthStateChanged " /* + JSON.stringify(currentUser) */
         );

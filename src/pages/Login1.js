@@ -5,9 +5,10 @@ import * as ROUTES from '../constants/Routes';
 import { useAuth } from '../hooks/AuthContext';
 
 const Login = () => {
-    const { login, logout } = useAuth();
+    const { login } = useAuth();
+
     const navigate = useNavigate();
-    console.log(Date.now());
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -64,13 +65,6 @@ const Login = () => {
         }, 10000);
         document.title = "Login - Instagram";
     }, [error]);
-    function handleLogout(e) {
-        try {
-            logout();
-        } catch (error) {
-            setError(error.message);
-        }
-    }
 
     return (
         <div className="container flex mx-auto max-w-screen-md items-center h-screen">
@@ -97,7 +91,7 @@ const Login = () => {
                             value={email}
                         />
                         <input
-                            autoComplete="user-password"
+                            autoComplete="off"
                             aria-label="Enter your password"
                             type="password"
                             placeholder="Password"
@@ -125,13 +119,6 @@ const Login = () => {
                         </Link>
                     </p>
                 </div>
-
-                <button
-                    onClick={handleLogout}
-                    className={`bg-blue-medium text-white w-full rounded h-8 font-bold`}>
-                    Logout
-                </button>
-
             </div>
         </div >
     );

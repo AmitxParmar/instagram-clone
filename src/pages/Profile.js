@@ -15,7 +15,7 @@ const Profile = () => {
             /*  const [user] = await  */
             await getUserByUserName(userName)
                 .then((user) => {
-                    console.log("🚀 ~ file: Profile.js:17 ~ getUserByUserName ~ user", user);
+                    console.log("🚀 ~ file: Profile.js:17 ~ getUserByUserName Profile Check ~ user", user);
                     if (user?.userId) {
                         setUser(user);
                     } else {
@@ -26,14 +26,14 @@ const Profile = () => {
         checkUserExists();
     }, [userName, navigate]);
 
-    return user ? (
-        <div className="bg-gray-background">
+    return user && (
+        <div className="bg-gray-background border-black-faded">
             <Header />
             <div className="mx-auto max-w-screen-lg">
                 <UserProfile user={user} />
             </div>
         </div>
-    ) : (<>Loading</>);
+    );
 };
 
 export default Profile;

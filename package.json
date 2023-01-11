@@ -27,9 +27,9 @@
     "watch:css": "postcss ./src/styles/tailwind.css -o src/styles/main.css --watch",
     "react-scripts:start": "react-scripts start",
     "react-scripts:dist": "react-scripts build",
-    "start": "run-p watch:css react-scripts:start",
-    "build": "run-s build:css react-scripts:dist",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

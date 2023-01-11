@@ -26,9 +26,13 @@ const User = ({ userName, fullName, profilePic }) => {
                     />
                 </div>
                 <div className='col-span-3'>
+                    <p className='font-xs text-sm'>
+                        {capitalize(userName)}
+                    </p>
                     <p className='font-bold text-sm'>
                         {capitalize(fullName)}
                     </p>
+
                 </div>
             </Link>
         );

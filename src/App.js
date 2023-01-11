@@ -22,9 +22,9 @@ const App = () => {
                 <Suspense fallback={<ReactLoader />}>
                     <Routes>
                         <Route path="*" element={<NotFound />} />
-                        <Route path='/' element={<Login />} />
+                        <Route path={ROUTES.LOGIN} element={<Login />} />
                         <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-                        <Route path={ROUTES.DASHBOARD} element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                        <Route path={ROUTES.DASHBOARD} element={<ProtectedRoute ><Dashboard /></ProtectedRoute>} />
                         <Route path={ROUTES.PROFILE} element={<Profile />} />
                     </Routes>
                 </Suspense>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { DEFAULT_IMAGE_PATH } from '../constants/Paths';
 import * as ROUTES from '../constants/Routes';
 import { useAuth } from '../hooks/AuthContext';
 import { db, doc, serverTimestamp, setDoc } from '../lib/FirebaseConfig';
@@ -24,7 +25,7 @@ const SignUp = () => {
         event.preventDefault();
         const userExists = await doesUserNameExist(userName);
 
-        console.log("userExist? " + Boolean(!userExists));
+
         if (!userExists) { // Run the function if the name  doesn't exists in database
             try {
                 await createUser(email, password)
@@ -40,17 +41,14 @@ const SignUp = () => {
                                 userName: userName.toLowerCase(),
                                 fullName: fullName.toLowerCase(),
                                 email: email,
+                                profilePicture: DEFAULT_IMAGE_PATH,
                                 followers: [],
                                 following: [],
                                 dateCreated: Date.now(),
                                 timestamp: serverTimestamp()
                             })
                                 .then((data) => {
-                                    alert("data updated!");
-                                    console.log("data added to database");
-                                    console.log("Logged in");
                                     navigate(ROUTES.DASHBOARD);
-                                    console.log("navigating to dashboard.... ");
                                 });
                         } catch (e) {
                             console.log(e.message + e.code);
@@ -87,7 +85,6 @@ const SignUp = () => {
             }
         } else {
             setError("Username is Already Taken");
-            console.log("else block");
         }
     };
 

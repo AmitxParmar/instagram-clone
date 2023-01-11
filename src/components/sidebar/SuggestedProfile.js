@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +9,7 @@ import { getUserByUserId, updateFollowedUserFollowers, updateLoggedInUserFollowi
 export default function SuggestedProfile({
     profileDocId,
     fullName,
+    profilePic,
     userName,
     profileId,
     userId,
@@ -15,7 +17,9 @@ export default function SuggestedProfile({
 }) {
     const [followed, setFollowed] = useState(false);
     const { setActiveUser } = useContext(FirestoreContext);
+
     const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
+
     async function handleFollowUser() {
         setFollowed(true);
         await updateLoggedInUserFollowing(loggedInUserDocId, profileId, false);
@@ -33,7 +37,7 @@ export default function SuggestedProfile({
             <div className="flex items-center justify-between">
                 <img
                     className="rounded-full w-8 flex mr-3"
-                    src={`/images/avatars/${userName}.jpg`}
+                    src={profilePic}
                     alt=""
                     onError={(e) => {
                         e.target.src = `/images/avatars/default.png`;
@@ -54,10 +58,10 @@ export default function SuggestedProfile({
     ) : null;
 }
 
-/* SuggestedProfile.propTypes = {
+SuggestedProfile.propTypes = {
     profileDocId: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
     profileId: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     loggedInUserDocId: PropTypes.string.isRequired
-}; */
+};
