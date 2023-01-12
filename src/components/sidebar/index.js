@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
 import FirestoreContext from '../../context/LoggedInUser';
+import Footer from './Footer';
 import Suggestions from './Suggestions';
 import User from './User';
 
@@ -11,9 +12,10 @@ export default function Sidebar() {
     console.log("🚀 ~ file: index.js:10 ~ Sidebar ~ fullName", fullName);
 
     return (
-        <div className="p-4">
+        <div className="p-4 capitalize relative">
             <User userName={userName} fullName={fullName} profilePic={profilePic} />
             <Suggestions userId={userId} following={following} loggedInUserDocId={docId} />
+            <Footer />
         </div>
     );
 }

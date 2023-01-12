@@ -1,6 +1,6 @@
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import { memo, useContext } from 'react';
+import { useContext } from 'react';
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 
@@ -15,7 +15,7 @@ const Timeline = () => {
 
     return (
         <div className='container col-span-2'>
-            {userData?.following === undefined ? (
+            {userData?.following === null ? (
                 <Skeleton count={2} width={640} height={500}
                     className='mb-5' />
             ) : userData?.following.length === 0 ? (
@@ -27,4 +27,4 @@ const Timeline = () => {
     );
 };
 
-export default memo(Timeline);
+export default Timeline;

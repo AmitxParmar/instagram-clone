@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { DEFAULT_IMAGE_PATH } from '../../constants/Paths';
 import FirestoreContext from '../../context/LoggedInUser';
 import { getUserByUserId, updateFollowedUserFollowers, updateLoggedInUserFollowing } from '../../services/Firebase';
-
 
 export default function SuggestedProfile({
     profileDocId,
@@ -17,8 +17,6 @@ export default function SuggestedProfile({
 }) {
     const [followed, setFollowed] = useState(false);
     const { setActiveUser } = useContext(FirestoreContext);
-
-    const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
 
     async function handleFollowUser() {
         setFollowed(true);
@@ -40,11 +38,11 @@ export default function SuggestedProfile({
                     src={profilePic}
                     alt=""
                     onError={(e) => {
-                        e.target.src = `/images/avatars/default.png`;
+                        e.target.src = DEFAULT_IMAGE_PATH;
                     }}
                 />
                 <Link to={`/p/${userName}`}>
-                    <p className="font-bold text-sm">{capitalize(fullName)}</p>
+                    <p className="font-bold text-sm">{fullName}</p>
                 </Link>
             </div>
             <button

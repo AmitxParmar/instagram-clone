@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
-            <ul className="flex flex-row m-4 pt-2 gap mb-1 space-x-4 text-xs text-gray-base">
+        <div className='flex flex-wrap'>
+            <ul className="flex list-none p-0 flex-wrap m-4 pt-2 gap mb-1 space-x-4 text-xs text-gray-base">
                 <li>About</li>
                 <li>Help</li>
                 <li>Press</li>

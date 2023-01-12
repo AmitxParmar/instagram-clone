@@ -15,6 +15,7 @@ export default function AddComment({ docId, comments, setComments, commentInput 
         setComments([...comments, { displayName, comment }]);
         setComment('');
         const docRef = doc(db, "photos", docId);
+
         updateDoc(docRef, {
             comments:
                 arrayUnion({ displayName, comment })

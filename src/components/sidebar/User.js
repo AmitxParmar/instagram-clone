@@ -6,9 +6,8 @@ import { Link } from 'react-router-dom';
 
 import { DEFAULT_IMAGE_PATH } from '../../constants/Paths';
 
-
 const User = ({ userName, fullName, profilePic }) => {
-    const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
+
     return !userName || !fullName ?
         (
             <Skeleton count={1} height={61} />
@@ -27,10 +26,10 @@ const User = ({ userName, fullName, profilePic }) => {
                 </div>
                 <div className='col-span-3'>
                     <p className='font-xs text-sm'>
-                        {capitalize(userName)}
+                        {userName}
                     </p>
                     <p className='font-bold text-sm'>
-                        {capitalize(fullName)}
+                        {fullName}
                     </p>
 
                 </div>

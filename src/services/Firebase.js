@@ -131,8 +131,8 @@ export async function getPhotos(userId, following) {
             // photo.userId = 2
             const user = await getUserByUserId(photo.userId);
             // raphael
-            const { userName } = user;
-            return { userName, ...photo, userLikedPhoto };
+            const { userName, profilePic } = user;
+            return { userName, profilePic, ...photo, userLikedPhoto };
         })
     );
     return photosWithUserDetails;

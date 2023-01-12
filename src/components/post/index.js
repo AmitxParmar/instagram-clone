@@ -8,7 +8,8 @@ import Header from './Header';
 import Image from './Image';
 
 export default function Post({ content }) {
-    const capitalize = (mySentence) => (mySentence.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()));
+    console.log("🚀 ~ file: index.js:11 ~ Post ~ content", content);
+
     const commentInput = useRef(null);
     const handleFocus = () => commentInput.current.focus();
 
@@ -16,17 +17,16 @@ export default function Post({ content }) {
     // -> header, image, actions (like & comment icons), footer, comments
 
     return (
-
-        <div className="rounded sm:w-full sm:relative col-span-4 border bg-white border-gray-primary mb-12">
-            <Header userName={capitalize(content.userName)} />
-            <Image src={content.imageSrc} caption={capitalize(content.caption)} />
+        <div className="rounded capitalize sm:w-full sm:relative col-span-4 border bg-white border-gray-primary mb-12">
+            <Header userName={content.userName} profilePic={content.profilePic} />
+            <Image src={content.imageSrc} caption={content.caption} />
             <Actions
                 docId={content.docId}
                 totalLikes={content.likes.length}
                 likedPhoto={content.userLikedPhoto}
                 handleFocus={handleFocus}
             />
-            <Footer caption={capitalize(content.caption)} userName={capitalize(content.userName)} />
+            <Footer caption={content.caption} userName={content.userName} />
             <Comments
                 docId={content.docId}
                 comments={content.comments}
