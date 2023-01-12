@@ -11,7 +11,7 @@ export default function Header({ userName, profilePic }) {
 
                     <img
                         className="rounded-full h-8 w-8 flex mr-3"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsz6xuzmNTbeymrzVM1ngEZLtspfI5rqbxbSwvUx6auQ&s"
+                        src={profilePic}
                         alt={`${userName} profile picture`}
                     />
                     <p className='font-bold'>{userName}</p>

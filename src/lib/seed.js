@@ -9,7 +9,7 @@
             userId: 'ZHuJJT1PNiUXrX71NAQtLjXlf7G2',
             userName: 'amitxparmar',
             fullName: 'Amit Parmar',
-            emailAddress: 'amitparmar901@gmail.com',
+            email: 'amitparmar901@gmail.com',
             following: [],
             followers: ['2', '3'],
             dateCreated: Date.now()
@@ -18,7 +18,7 @@
             userId: '2',
             userName: 'Raphel',
             fullName: 'Raffello Sanzio',
-            emailAddress: 'raphel@sanzio.com',
+            email: 'raphel@sanzio.com',
             following: ['ZHuJJT1PNiUXrX71NAQtLjXlf7G2'],
             followers: [],
             dateCreated: Date.now()
@@ -27,7 +27,7 @@
             userId: '3',
             userName: 'dali',
             fullName: 'Salvador Dali',
-            emailAddress: 'salvador@dali.com',
+            emails: 'salvador@dali.com',
             following: ['ZHuJJT1PNiUXrX71NAQtLjXlf7G2'],
             followers: ['saodmasodmasomdpsmd'],
             dateCreated: Date.now()

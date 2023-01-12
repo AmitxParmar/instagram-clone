@@ -11,13 +11,15 @@ import useUser from '../hooks/useUser';
 const Dashboard = () => {
 
     const { user } = useAuth();
-    // console.log(userData);
+    console.log("🚀 ~ file: Dashboard.js:14 ~ Dashboard ~ user getting data from auth but not firestore", user);
+
     const { userData, setActiveUser } = useUser(user.uid);
+    console.log("🚀 ~ file: Dashboard.js:16 ~ Dashboard ~ userData", userData);
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
 
-    return (
+    return userData && (
         <FirestoreContext.Provider value={{ userData, setActiveUser }}>
             <div className="bg-gray-background">
                 <Header />

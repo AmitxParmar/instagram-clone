@@ -3,10 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import ReactLoader from './components/Loader';
 import * as ROUTES from './constants/Routes';
-import ProtectedRoute from './helpers/ProtectedRoutes';
 import { AuthContextProvider } from './hooks/AuthContext';
 
-//import UserContext from './context/User';
 
 const Login = lazy(() => import('./pages/Login.js'));
 const SignUp = lazy(() => import('./pages/SignUp.js'));
@@ -24,7 +22,7 @@ const App = () => {
                         <Route path="*" element={<NotFound />} />
                         <Route path={ROUTES.LOGIN} element={<Login />} />
                         <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-                        <Route path={ROUTES.DASHBOARD} element={<ProtectedRoute ><Dashboard /></ProtectedRoute>} />
+                        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
                         <Route path={ROUTES.PROFILE} element={<Profile />} />
                     </Routes>
                 </Suspense>

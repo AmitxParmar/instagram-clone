@@ -41,7 +41,7 @@ const SignUp = () => {
                                 userName: userName.toLowerCase(),
                                 fullName: fullName.toLowerCase(),
                                 email: email,
-                                profilePicture: DEFAULT_IMAGE_PATH,
+                                profilePic: DEFAULT_IMAGE_PATH,
                                 followers: [],
                                 following: [],
                                 dateCreated: Date.now(),
@@ -54,8 +54,7 @@ const SignUp = () => {
                             console.log(e.message + e.code);
                         }
                     });
-            }
-            catch (error) {
+            } catch (error) {
                 const errorCode = error.code;
                 setUserName('');
                 setFullName('');

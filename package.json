@@ -15,6 +15,7 @@
     "firebase": "^9.14.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-lazy-load-image-component": "^1.5.6",
     "react-loader-spinner": "^5.3.4",
     "react-loading-skeleton": "^3.1.0",
     "react-router-dom": "^6.4.4",
@@ -23,13 +24,13 @@
     "yarn-run-all": "^3.1.1"
   },
   "scripts": {
-    "build:css": "postcss ./src/styles/tailwind.css -o src/styles/main.css",
-    "watch:css": "postcss ./src/styles/tailwind.css -o src/styles/main.css --watch",
-    "react-scripts:start": "react-scripts start",
+    "build:css": "postcss src/styles/tailwind.css -o src/styles/app.css",
+    "watch:css": "postcss src/styles/tailwind.css -o src/styles/app.css --watch",
+    "react-scripts:start": "sleep 5 && react-scripts start",
     "react-scripts:dist": "react-scripts build",
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "run-p watch:css react-scripts:start",
+    "build": "run-s build:css react-scripts:dist",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

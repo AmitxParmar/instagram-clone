@@ -7,7 +7,6 @@ function useUser(userId) {
 
     useEffect(() => {
         async function getUserObjByUserId(userId) {
-            /* const [userIDData] = await */
             await getUserByUserId(userId)
                 .then((data) => {
                     localStorage.setItem('userFirestoreData', JSON.stringify(data));

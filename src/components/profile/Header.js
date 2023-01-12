@@ -24,7 +24,7 @@ export default function Header({
         userName: profileUsername
     }
 }) {
-    const { userData: loggedInUser } = useContext(UserContext);
+    const { user: loggedInUser } = useContext(UserContext);
     const { userData } = useUser(loggedInUser?.uid);
     const [isFollowingProfile, setIsFollowingProfile] = useState(null);
     const activeBtnFollow = userData?.userName && userData?.userName !== profileUsername;
@@ -67,7 +67,7 @@ export default function Header({
             <div className="flex items-center justify-center flex-col col-span-2">
                 <div className="container flex items-center">
                     <p className="text-2xl mr-4">{profileUsername}</p>
-                    {activeBtnFollow && isFollowingProfile === null ? (
+                    {activeBtnFollow && isFollowingProfile === undefined ? (
                         <Skeleton count={1} width={80} height={32} />
                     ) : (
                         activeBtnFollow && (

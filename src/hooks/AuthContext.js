@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 
 import UserContext from '../context/User';
 import {
-  app,
-  auth,
-  createUserWithEmailAndPassword,
-  db,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile,
+    app,
+    auth,
+    createUserWithEmailAndPassword,
+    db,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
+    updateProfile,
 } from '../lib/FirebaseConfig';
 
 // importing firebase functions and initialized database and authentication from the same file decreases complexity.
@@ -60,6 +60,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   // returning function's returned value to context provider so that can other files can have access to it.
+
   return (
     <UserContext.Provider
       value={{

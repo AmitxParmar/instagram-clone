@@ -14,6 +14,7 @@ export default function Post({ content }) {
 
     // components
     // -> header, image, actions (like & comment icons), footer, comments
+
     return (
 
         <div className="rounded sm:w-full sm:relative col-span-4 border bg-white border-gray-primary mb-12">
