@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,js,jsx,ts,tsx}",
-  ],
   future: {
     removeDeprecatedGapUtilities: true
   },
+  content: [
+    // Example content paths...
+    './public/**/*.html',
+    './src/**/*.{js,jsx,ts,tsx,vue}',
+  ],
   theme: {
     fill: (theme) => ({
       red: theme('colors.red.primary')
@@ -27,10 +29,8 @@ module.exports = {
       red: {
         primary: '#ed4956'
       }
-    },
-    extend: {},
+    }
   },
-  plugins: [],
   variants: {
     extend: {
       display: ['group-hover']

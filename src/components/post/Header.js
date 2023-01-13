@@ -9,12 +9,12 @@ export default function Header({ userName, profilePic }) {
     return (
         <div className='flex border-b border-gray-primary h-4 p-4 py-8'>
             <div className='flex items-center'>
-                <Link className='flex items-center'>
-                    <img
+                <Link to={`/p/${userName}`} className='flex items-center'>
+                    {profilePic && (<img
                         className="rounded-full h-8 w-8 flex mr-3"
                         src={profilePic}
                         alt={`${userName} profile picture`}
-                    />
+                    />)}
                     <p className='font-bold'>{userName}</p>
                 </Link>
             </div>

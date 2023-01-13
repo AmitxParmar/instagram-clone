@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import Header from '../components/Header';
 import Sidebar from '../components/sidebar';
+import Story from '../components/story';
 import Timeline from '../components/Timeline';
 import FirestoreContext from '../context/LoggedInUser';
 import { useAuth } from '../hooks/AuthContext';
@@ -23,6 +24,7 @@ const Dashboard = () => {
         <FirestoreContext.Provider value={{ userData, setActiveUser }}>
             <div className="bg-gray-background">
                 <Header />
+                <Story />
                 <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
                     <Timeline />
                     <Sidebar className='sticky top-0' />

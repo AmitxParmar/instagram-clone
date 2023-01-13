@@ -118,10 +118,12 @@ export async function getPhotos(userId, following) {
     // [5,4,2] => following
     const q = query(colRefPhotos, where("userId", "in", following));
     const querySnapshot = await getDocs(q);
+
     const userFollowedPhotos = querySnapshot.docs.map((photo) => ({
         ...photo.data(),
         docId: photo.id,
     }));
+
     const photosWithUserDetails = await Promise.all(
         userFollowedPhotos.map(async (photo) => {
             let userLikedPhoto = false;
@@ -151,39 +153,27 @@ export async function getUserPhotosByUserId(userId) {
     }));
 }
 
-/* ================================================================= */
-/*  ===================== Firebase before version 9 ===================== 
-await firebase
-    .firestore()
-    .collection('photos')
-    .where('userId', '==', userId)
-    .get(); 
-    ============================================*/
-
+/* ========================================================================================== */
 
 export async function isUserFollowingProfile(loggedInUserUsername, profileUserId) {
-    const q = query(colRefUser, where('userName', '==', loggedInUserUsername) // Amit (active logged in user)
-        , where('following', 'array-contains', profileUserId));
-    const result = getDocs(q);
 
-    /* <================== replaced code =======================>
+    const w1 = where('userName', '==', loggedInUserUsername.toLowerCase()); // Amit (active logged in user);
+    const w2 = where('following', 'array-contains', profileUserId);
 
-     await firebase
-        .firestore()
-        .collection('users')
-        ,where('userName', '==', loggedInUserUsername) // karl (active logged in user)
-        ,where('following', 'array-contains', profileUserId)
-        .get(); 
-        
-        <================== replaced code =======================>*/
+    const q = query(colRefUser, w1, w2);
+
+    // TODO: todo testasdlmsfmsdf
+    const result = await getDocs(q);
+    // return { ...result.docs[0].data().userId };
+    /* console.log("🚀 ~ file: Firebase.js:162 ~ isUserFollowingProfile ~ result", result.docs[0].id); */
 
     const [response = {}] = result.docs.map((item) => ({
         ...item.data(),
         docId: item.id
     }));
-
     return response.userId;
 }
+console.log("isUserFollowing Profile? AmitxParmar -> Nami", isUserFollowingProfile("amitxparmar", "0OnQq00YOoesn7yiqz6Sa9JSvCh2"));
 
 export async function toggleFollow(
     isFollowingProfile,

@@ -27,7 +27,7 @@ export default function Profile({ user }) {
     }, [user.userName, user]);
 
     return (
-        <div className='capitalize'>
+        <div>
             <Header
                 photosCount={photosCollection ? photosCollection.length : 0}
                 profile={profile}

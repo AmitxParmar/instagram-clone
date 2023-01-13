@@ -12,7 +12,7 @@ export default function Sidebar() {
     console.log("🚀 ~ file: index.js:10 ~ Sidebar ~ fullName", fullName);
 
     return (
-        <div className="p-4 capitalize relative">
+        <div className="p-4 capitalize sm:translate-x-0 relative sticky bg-white"> // TODO: Remove bg-white later doesnt suit the theme
             <User userName={userName} fullName={fullName} profilePic={profilePic} />
             <Suggestions userId={userId} following={following} loggedInUserDocId={docId} />
             <Footer />

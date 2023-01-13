@@ -10,12 +10,12 @@ const Profile = () => {
     const { userName } = useParams();
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         async function checkUserExists() {
-            /*  const [user] = await  */
+
             await getUserByUserName(userName)
                 .then((user) => {
-                    console.log("🚀 ~ file: Profile.js:17 ~ getUserByUserName Profile Check ~ user", user);
                     if (user?.userId) {
                         setUser(user);
                     } else {
@@ -27,7 +27,7 @@ const Profile = () => {
     }, [userName, navigate]);
 
     return user && (
-        <div className="bg-gray-background border-black-faded">
+        <div className="bg-gray-background capitalize border-black-faded">
             <Header />
             <div className="mx-auto max-w-screen-lg">
                 <UserProfile user={user} />
