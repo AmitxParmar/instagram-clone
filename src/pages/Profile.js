@@ -29,7 +29,7 @@ const Profile = () => {
     return user && (
         <div className="bg-gray-background capitalize border-black-faded">
             <Header />
-            <div className="mx-auto max-w-screen-lg">
+            <div className="mx-auto py-6 max-w-screen-lg">
                 <UserProfile user={user} />
             </div>
         </div>

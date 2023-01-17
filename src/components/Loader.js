@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Puff } from 'react-loader-spinner';
 
 export default function ReactLoader() {
@@ -9,5 +10,11 @@ export default function ReactLoader() {
             width={70}
             wrapperClass='flex justify-center mt-12'
         />
+        /* <div className='h-screen w-screen'>
+        <img
+            className='bg-white'
+            src='/public/images/fallback.png'
+        />
+    </div> */
     );
 }

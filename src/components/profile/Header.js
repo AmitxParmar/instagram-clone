@@ -40,9 +40,11 @@ export default function Header({
 
     const handleBioSubmit = (e) => {
         e.preventDefault();
+        console.log(e.target)
+        const value = e.target.value[0];
         const docRef = doc(db, "users", loggedInUser.uid);
         updateDoc(docRef, {
-            instaBio: bio
+            instaBio: value
         });
         setIsEditing(false);
     };
@@ -82,9 +84,9 @@ export default function Header({
     }, [userData.userName, profileUserId,]);
 
 
-    /* =========================== render ================================= */
+    /* <=========================|| <[Header]> ||===========================> */
     return (
-        <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
+        <div className="grid grid-cols-3 gap-4 justify-between max-w-screen-lg">
             <div className="container flex justify-center items-center">
                 {profileUserName ? (
                     <img
@@ -123,7 +125,7 @@ export default function Header({
                     )}
                 </div>
 
-                <div className="container flex mt-4">
+                <div className="container text-sm flex mt-4">
                     {!followers || !following ? (
                         <Skeleton count={1} width={677} height={24} />
                     ) : (
@@ -145,14 +147,13 @@ export default function Header({
                     )}
                 </div>
 
-                <div className="container mt-4">
+                <div className="container font-serif  text-gray-base mt-4">
                     <p className="font-medium">{!fullName ? <Skeleton count={1} height={24} /> : fullName}</p>
                 </div>
 
-
+                {/* |========|| [Bio Edit Function] ||=======| */}
 
                 {isEditing && !activeBtnFollow ? (<form onSubmit={handleBioSubmit} method='POST' className='container flex flex-row p-2 relative' >
-
                     <input
                         aria-label="Update Your Bio..."
                         autoComplete="off"
@@ -162,19 +163,16 @@ export default function Header({
                         placeholder="Update Your Bio..."
                         value={bio}
                         onChange={({ target }) => setBio(target.value)}
+
                         ref={bioRef}
                     />
-
-                    <button type='submit' className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Submit </button>
+                    <button onClick={handleBioSubmit} type='submit' className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Submit </button>
                 </form>) : (<div className='container'>
                     <p className='font-bold font-mono text-xs '>{instaBio}</p>
-                    <p onClick={() => setIsEditing(true)} className='text-xs cursor-pointer text-gray-base'>
-                        edit
-                    </p>
+                    {!activeBtnFollow && (<p onClick={() => setIsEditing(true)} className='text-xs cursor-pointer uppercase text-gray-base'>
+                        edit bio
+                    </p>)}
                 </div>)}
-
-
-
             </div>
         </div>
     );
