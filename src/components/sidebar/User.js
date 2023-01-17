@@ -13,7 +13,7 @@ const User = ({ userName, fullName, profilePic }) => {
             <Skeleton count={1} height={61} />
         ) : (
             <Link to={`/p/${userName}`}
-                className='grid grid-cols-4 gap-4 mb-6 items-center bg-white pb-3'> // TODO NOTE : remove pb-3 later and bg-white aswell
+                className='grid grid-cols-4 border border-gray-primary w-full  font-bold gap-4 mb-6 items-center bg-white p-3'>
                 <div className='flex items-center justify-between col-span-1'>
                     <img
                         className='rounded-full w-16 flex mr-3'
@@ -25,13 +25,12 @@ const User = ({ userName, fullName, profilePic }) => {
                     />
                 </div>
                 <div className='col-span-3'>
-                    <p className='font-xs text-sm'>
+                    <p className='font-sm text-sm'>
                         {userName}
                     </p>
                     <p className='font-bold text-gray-base text-[9px]'>
                         {fullName}
                     </p>
-
                 </div>
             </Link>
         );

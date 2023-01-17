@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className="h-16 bg-white border-b border-gray-primary mb-8">
+    <header className="h-16 bg-white border-b border-gray-primary mb-auto">
       <div className="container mx-auto max-w-screen-lg h-full">
         <div className="flex justify-between h-full">
           <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
@@ -41,6 +41,9 @@ const Header = () => {
           <div className="text-gray-700 text-center flex items-center align-items">
             {loggedInUser ? (
               <>
+                <button>
+
+                </button>
                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                   <svg
                     className="w-8 mr-6 text-black-light cursor-pointer"

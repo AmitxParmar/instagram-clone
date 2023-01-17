@@ -14,7 +14,7 @@ const Timeline = () => {
     const { photos } = usePhotos(userData);
 
     return (
-        <div className='container col-span-2'>
+        <div className='container col-span-2 h-full'>
             {following === undefined ? (
                 <Skeleton count={2} width={640} height={500}
                     className='mb-5' />

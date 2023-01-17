@@ -35,7 +35,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
             <div className="text-[11px] flex items-center align-items justify-between mb-2">
                 <p className="font-bold text-gray-base">Suggestions for you</p>
             </div>
-            <div className="mt-4 mb-4 grid gap-5">
+            <div className="mt-4 border p-2 border-gray-primary mb-4 grid gap-5">
                 {profiles.map((profile) => (
                     <SuggestedProfile
                         key={profile.docId}

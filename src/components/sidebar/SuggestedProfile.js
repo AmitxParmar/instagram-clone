@@ -34,9 +34,9 @@ export default function SuggestedProfile({
         <div className="flex flex-row items-center align-items justify-between">
             <div className="flex items-center justify-between">
                 <img
-                    className="rounded-full w-8 flex mr-3"
+                    className="rounded-full w-8 h-8 flex mr-3"
                     src={profilePic}
-                    alt=""
+                    alt="suggested profile"
                     onError={(e) => {
                         e.target.src = DEFAULT_IMAGE_PATH;
                     }}
@@ -46,6 +46,7 @@ export default function SuggestedProfile({
                 </Link>
             </div>
             <button
+                aria-label='follow'
                 className="text-xs font-bold text-blue-medium"
                 type="button"
                 onClick={handleFollowUser}

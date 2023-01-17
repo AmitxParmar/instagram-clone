@@ -4,8 +4,8 @@ import React from 'react';
 
 const UserStory = ({ show }) => {
     return (
-        <div className="story">
-            <div className="flex justify-center items-center flex-col mx-2">
+        <div className="story mx-1">
+            <div className="flex justify-center items-center flex-col gap-2">
                 <div className="story__border">
                     <img
                         className="w-full h-full rounded-full"
@@ -14,7 +14,7 @@ const UserStory = ({ show }) => {
                         alt="story list"
                     />
                 </div>
-                <p className="text-xs">AmitxParmar</p>
+                <p className="text-xs"> AmitxParmar </p>
             </div>
         </div>
     );

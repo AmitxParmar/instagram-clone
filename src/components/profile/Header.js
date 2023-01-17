@@ -38,7 +38,7 @@ export default function Header({
 
     bioRef.value = instaBio;
 
-    const handleSubmit = (e) => {
+    const handleBioSubmit = (e) => {
         e.preventDefault();
         const docRef = doc(db, "users", loggedInUser.uid);
         updateDoc(docRef, {
@@ -46,6 +46,10 @@ export default function Header({
         });
         setIsEditing(false);
     };
+    useEffect(() => {
+
+    }, [])
+
 
 
     /* ==================================================================================================== */
@@ -75,7 +79,7 @@ export default function Header({
             isLoggedInUserFollowingProfile();
         }
 
-    }, [userData.userName, profileUserId, instaBio, isEditing]);
+    }, [userData.userName, profileUserId,]);
 
 
     /* =========================== render ================================= */
@@ -125,7 +129,9 @@ export default function Header({
                     ) : (
                         <>
                             <p className="mr-10">
-                                <span className="font-bold">{photosCount}</span> photos
+                                <span className="font-bold">
+                                    {photosCount}
+                                </span> photos
                             </p>
                             <p className="mr-10">
                                 <span className="font-bold">{followerCount}</span>
@@ -143,9 +149,10 @@ export default function Header({
                     <p className="font-medium">{!fullName ? <Skeleton count={1} height={24} /> : fullName}</p>
                 </div>
 
-                <p className='flex flex-wrap'>{instaBio}</p>
 
-                <form onSubmit={handleSubmit} method='POST' className='container' >
+
+                {isEditing && !activeBtnFollow ? (<form onSubmit={handleBioSubmit} method='POST' className='container flex flex-row p-2 relative' >
+
                     <input
                         aria-label="Update Your Bio..."
                         autoComplete="off"
@@ -157,9 +164,17 @@ export default function Header({
                         onChange={({ target }) => setBio(target.value)}
                         ref={bioRef}
                     />
-                    <button className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} />
-                </form>
-                <p onClick={() => setIsEditing(true)} className='text-xs cursor-pointer'>edit</p>
+
+                    <button type='submit' className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Submit </button>
+                </form>) : (<div className='container'>
+                    <p className='font-bold font-mono text-xs '>{instaBio}</p>
+                    <p onClick={() => setIsEditing(true)} className='text-xs cursor-pointer text-gray-base'>
+                        edit
+                    </p>
+                </div>)}
+
+
+
             </div>
         </div>
     );

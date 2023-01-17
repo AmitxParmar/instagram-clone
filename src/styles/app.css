@@ -503,9 +503,6 @@ video {
 .sticky {
   position: sticky;
 }
-.top-0 {
-  top: 0px;
-}
 .bottom-0 {
   bottom: 0px;
 }
@@ -716,6 +713,9 @@ video {
 .border-t {
   border-top-width: 1px;
 }
+.border-none {
+  border-style: none;
+}
 .border-gray-primary {
   --tw-border-opacity: 1;
   border-color: rgb(219 219 219 / var(--tw-border-opacity));
@@ -787,6 +787,9 @@ video {
 }
 .pt-4 {
   padding-top: 1rem;
+}
+.pb-3 {
+  padding-bottom: 0.75rem;
 }
 .pb-8 {
   padding-bottom: 2rem;
