@@ -15,6 +15,10 @@ const SignUp = () => {
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    /* image handling test */
+    const [selectedImage, setSelectedImage] = useState('');
+
+    /* image handling test */
 
     const [error, setError] = useState('');
     const isInvalid = password === "" || email === "";
@@ -45,7 +49,9 @@ const SignUp = () => {
                                 followers: [],
                                 following: [],
                                 dateCreated: Date.now(),
-                                timestamp: serverTimestamp()
+                                timestamp: serverTimestamp(),
+                                profilePic: selectedImage
+
                             })
                                 .then((data) => {
                                     navigate(ROUTES.DASHBOARD);
@@ -151,6 +157,19 @@ const SignUp = () => {
                             className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
                             onChange={({ target }) => setPassword(target.value)}
                             value={password}
+                        />
+                        <label for="empty-for-now" className='container border-gray-primary text-sm bg-white'>
+                            Upload Profile Pic
+                        </label>
+                        <input
+                            className='hidden'
+                            type="file"
+                            id='empty-for-now'
+                            name="myImage"
+                            onChange={(event) => {
+                                console.log(event.target.files[0]);
+                                setSelectedImage(event.target.files[0]);
+                            }}
                         />
                         <button
                             disabled={isInvalid}

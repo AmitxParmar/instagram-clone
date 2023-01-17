@@ -29,6 +29,7 @@ export default function Header({
 }) {
     // currently logged in user context 
     const { user: loggedInUser } = useAuth();
+    console.log("🚀 ~ file: Header.js:32 ~ loggedInUser", loggedInUser.displayName)
 
     /* ============================= Bio Data Update Feature =============================== */
 
@@ -48,17 +49,13 @@ export default function Header({
         });
         setIsEditing(false);
     };
-    useEffect(() => {
-
-    }, [])
-
-
-
-    /* ==================================================================================================== */
+    /* ================================================================ */
 
     const { userData } = useUser(loggedInUser?.uid);
 
     const [isFollowingProfile, setIsFollowingProfile] = useState(null);
+    const [selectedImage, setSelectedImage] = useState('');
+
 
     const activeBtnFollow = userData?.userName && userData?.userName !== profileUserName;
     /* ====================================== __Followers Logic__ ======================================= */
@@ -81,14 +78,28 @@ export default function Header({
             isLoggedInUserFollowingProfile();
         }
 
-    }, [userData.userName, profileUserId,]);
+    }, [userData.userName, profileUserId]);
 
 
     /* <=========================|| <[Header]> ||===========================> */
     return (
         <div className="grid grid-cols-3 gap-4 justify-between max-w-screen-lg">
             <div className="container flex justify-center items-center">
-                {profileUserName ? (
+                {profileUserName ? (!activeBtnFollow ? (
+
+                    <label for='profile-pic'>
+                        <img
+                            className="rounded-full h-40 w-40 flex hover:blur-sm cursor-pointer"
+                            alt={`${fullName} profile picture`}
+                            src={profilePic}
+                            onError={(e) => {
+                                e.target.src = DEFAULT_IMAGE_PATH;
+                            }}
+                        />
+                        <input type="file" id="profile-pic" className='hidden' />
+                    </label>
+
+                ) : (
                     <img
                         className="rounded-full h-40 w-40 flex"
                         alt={`${fullName} profile picture`}
@@ -96,10 +107,9 @@ export default function Header({
                         onError={(e) => {
                             e.target.src = DEFAULT_IMAGE_PATH;
                         }}
-                    />
+                    />)
                 ) : (
-                    <Skeleton circle height={150} width={150} count={1} />
-                )}
+                    <Skeleton circle height={150} width={150} count={1} />)}
             </div>
 
             <div className="flex items-center justify-center flex-col col-span-2">
@@ -161,7 +171,7 @@ export default function Header({
                         type="text"
                         name="edit-bio"
                         placeholder="Update Your Bio..."
-                        value={bio}
+                        value=""
                         onChange={({ target }) => setBio(target.value)}
 
                         ref={bioRef}

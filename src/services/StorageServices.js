@@ -3,11 +3,14 @@ import { useState } from 'react';
 
 import { db, doc, storage, updateDoc } from '../lib/FirebaseConfig';
 
-export async function uploadUserProfile(file, uploaderUID) { // 
+export async function getProfileURL(file, uploaderUID) { // 
     const [progress, setProgress] = (0);
+
     if (!file) return;
     const storageRef = ref(storage, `/userProfiles/${uploaderUID}`);
     const docRef = doc(db, "users", uploaderUID);
+
+    let imageURL;
     const uploadTask = uploadBytesResumable(storageRef, file);
     uploadTask.on('state_changed', (snapshot) => {
         const prog = Math.round(
@@ -16,17 +19,18 @@ export async function uploadUserProfile(file, uploaderUID) { //
         console.log(prog);
         setProgress(prog);
     }, (err) => console.log('error occurred during uploading: ', err),
-        () => {
-            getDownloadURL(uploadTask.snapshot.ref)
+        async () => {
+            await getDownloadURL(uploadTask.snapshot.ref)
                 .then(url => {
                     console.log(url);
+                    imageURL = url;
                     updateDoc(docRef, {
                         profilePic: url // Save the profile Pic URL in the database
                     });
                 });
         }
     );
-    return progress;
+    return imageURL;
 };
 
 

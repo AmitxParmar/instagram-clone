@@ -9,12 +9,12 @@ import usePhotos from '../hooks/usePhotos';
 import Post from './post';
 
 const Timeline = () => {
-    const { userData: { following } = {}, userData } = useContext(FirestoreContext);
+    const { userData: { following }, userData } = useContext(FirestoreContext);
 
     const { photos } = usePhotos(userData);
 
     return (
-        <div className='container col-span-2 h-full'>
+        <div className='container col-span-2 h-screen'>
             {following === undefined ? (
                 <Skeleton count={2} width={640} height={500}
                     className='mb-5' />
