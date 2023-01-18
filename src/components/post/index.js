@@ -17,7 +17,7 @@ export default function Post({ content }) {
     // -> header, image, actions (like & comment icons), footer, comments
 
     return (
-        <div className="capitalize sm:w-full sm:relative col-span-4 border bg-white border-gray-primary mb-12">
+        <div className="container drop-shadow-none text-white max-w-fit capitalize border-spacing-0.5 bg-black-hard border-black mb-12">
             <Header userName={content.userName} profilePic={content.profilePic} />
             <Image src={content.imageSrc} caption={content.caption} />
             <Actions

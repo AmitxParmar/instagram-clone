@@ -10,7 +10,7 @@ export default function Story() {
     const [showStory, setShowStory] = useState(false);
 
     return (
-        <div className='col-span-6 border border-gray-primary  bg-white container my-4 bg-clip-border overflow-auto mx-6'>
+        <div className='bg-black-hard container bg-clip-border overflow-auto '>
             <StoryOpen showStory={showStory} exitStory={setShowStory} />
             <div
                 className='scrollbar-hide flex overflow-x-auto py-4'>

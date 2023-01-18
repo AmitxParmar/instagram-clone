@@ -5,7 +5,7 @@ const StoryOpen = ({ showStory, exitStory }) => {
     return (
         <div>
             {showStory ? (
-                <div className="story_open container flex flex-col items-center justify-center absolute z-50 top-0 w-[500px] h-screen">
+                <div className="container flex flex-col items-center justify-center absolute z-50 top-0 w-[500px] h-screen">
                     <div className="info__top">
                         <p>AmitxParmar</p>
                         <div className="w-6">

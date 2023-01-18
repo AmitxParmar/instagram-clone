@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require('tailwindcss/colors')
 module.exports = {
   future: {
     removeDeprecatedGapUtilities: true
@@ -20,7 +21,8 @@ module.exports = {
 
       black: {
         light: '#262626',
-        faded: '#00000059'
+        faded: '#00000059',
+        hard: '#000000'
       },
       gray: {
         base: '#616161',
@@ -29,7 +31,10 @@ module.exports = {
       },
       red: {
         primary: '#ed4956'
-      }
+      },
+      pink: colors.pink,
+      yellow: colors.yellow,
+      redhard: colors.red,
     }
   },
   variants: {

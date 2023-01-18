@@ -29,7 +29,6 @@ export default function SuggestedProfile({
             }
             );
     }
-
     return !followed ? (
         <div className="flex flex-row items-center align-items justify-between">
             <div className="flex items-center justify-between">

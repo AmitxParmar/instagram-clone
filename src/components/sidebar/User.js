@@ -13,8 +13,8 @@ const User = ({ userName, fullName, profilePic }) => {
             <Skeleton count={1} height={61} />
         ) : (
             <Link to={`/p/${userName}`}
-                className='grid grid-cols-4 border border-gray-primary w-full  font-bold gap-4 mb-6 items-center bg-white p-3'>
-                <div className='flex items-center justify-between col-span-1'>
+                className='grid grid-cols-3 w-full font-bold gap-3 mb-6 items-center bg-black-hard p-3'>
+                <div className='flex items-center justify-between'>
                     <img
                         className='rounded-full w-16 flex mr-3'
                         src={profilePic}
@@ -26,11 +26,11 @@ const User = ({ userName, fullName, profilePic }) => {
                         }
                     />
                 </div>
-                <div className='col-span-3'>
-                    <p className='font-medium text-sm'>
+                <div className=' flex flex-wrap'>
+                    <p className='font-bold text-sm'>
                         {userName}
                     </p>
-                    <p className='font-bold text-gray-base text-[9px]'>
+                    <p className='font-bold text-gray-base text-sm'>
                         {fullName}
                     </p>
                 </div>

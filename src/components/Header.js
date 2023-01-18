@@ -24,21 +24,21 @@ const Header = () => {
   };
 
   return (
-    <header className="h-16 bg-white border-b border-gray-primary mb-auto">
+    <header className="h-16 bg-black-hard border-b border-gray-primary mb-auto">
       <div className="container mx-auto max-w-screen-lg h-full">
         <div className="flex justify-between h-full">
-          <div className="text-gray-700 text-center flex items-center align-items cursor-pointer">
+          <div className="text-gray-base text-center flex items-center align-items cursor-pointer">
             <h1 className="flex justify-center w-full">
               <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
                 <img
                   src="/images/logo.png"
                   alt="Instagram"
-                  className="mt-2 w-6/12"
+                  className="mt-2 w-6/12 invert"
                 />
               </Link>
             </h1>
           </div>
-          <div className="text-gray-700 text-center flex items-center align-items">
+          <div className="text-white-700 text-center flex items-center align-items">
             {loggedInUser ? (
               <>
                 <button>
@@ -46,7 +46,7 @@ const Header = () => {
                 </button>
                 <Link to={ROUTES.DASHBOARD} aria-label="Dashboard">
                   <svg
-                    className="w-8 mr-6 text-black-light cursor-pointer"
+                    className="w-8 mr-6 text-white cursor-pointer"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ const Header = () => {
                   }}
                 >
                   <svg
-                    className="w-8 mr-6 text-black-light cursor-pointer"
+                    className="w-8 mr-6 text-white cursor-pointer"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"

@@ -14,12 +14,14 @@ const Timeline = () => {
     const { photos } = usePhotos(userData);
 
     return (
-        <div className='container col-span-2 h-screen'>
+        <div className='container bg-black-hard h-full'>
             {following === undefined ? (
                 <Skeleton count={2} width={640} height={500}
                     className='mb-5' />
             ) : following.length === 0 ? (
-                <p className='flex justify-center font-bold'>Follow other people to see Photos </p>
+                <p className='flex justify-center font-bold'>
+                    Follow other people to see Photos
+                </p>
             ) : photos ? (
                 photos.map((content) => <Post key={content.docId} content={content} />)
             ) : null}
