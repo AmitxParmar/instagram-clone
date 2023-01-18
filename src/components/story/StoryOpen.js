@@ -5,23 +5,24 @@ const StoryOpen = ({ showStory, exitStory }) => {
     return (
         <div>
             {showStory ? (
-                <div className="story_open">
+                <div className="story_open container flex flex-col items-center justify-center absolute z-50 top-0 w-[500px] h-screen">
                     <div className="info__top">
-                        <p>username</p>
+                        <p>AmitxParmar</p>
                         <div className="w-6">
                             <img
-                                src="../instagramIcon/close.png"
+                                src="/public/images/fallback.png"
                                 alt="story"
                                 onClick={() => exitStory(false)}
                             />
                         </div>
                     </div>
-                    <img
+                    <img className='max-w-[500px]'
                         src={`https://source.unsplash.com/collection/1346951/800x800?sig=${Math.random()}`}
-                        alt=""
+                        alt="story"
                     />
-                    <div className="absolute bottom-0 text-white border rounded-full p-3 w-full m-3">
-                        kirim pesan{" "}
+                    <div className="absolute bottom-0 text-white border rounded-full p-5 w-full m-3">
+                        <label for="send-story-msg"></label>
+                        <input className='' type="text" id="send-story-msg" />{" "}
                     </div>
                 </div>
             ) : null}

@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div className='flex flex-wrap'>
-            <ul className="flex flex-wrap relative pt-2 gap-1 text-[9px] text-gray-base">
+        <div className='flex flex-wrap text-xs text-gray-base'>
+            <ul className="flex flex-wrap relative py-2 gap-1">
                 <li>{" "}About</li>
                 <li>Help</li>
                 <li>Press</li>
@@ -16,6 +16,7 @@ const Footer = () => {
                 <li>Hashtags</li>
                 <li>Language</li>
             </ul>
+            <p>© 2023 INSTAGRAM FROM META</p>
         </div>
     );
 };

@@ -13,7 +13,7 @@ export default function Story() {
         <div className='col-span-6 border border-gray-primary  bg-white container my-4 bg-clip-border overflow-auto mx-6'>
             <StoryOpen showStory={showStory} exitStory={setShowStory} />
             <div
-                className='scrollbar-hide w3xl flex overflow-x-auto py-4'>
+                className='scrollbar-hide flex overflow-x-auto py-4'>
                 {arr.map((_, index) => {
                     return <UserStory key={index} show={setShowStory} />;
                 })

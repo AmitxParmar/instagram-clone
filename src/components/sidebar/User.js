@@ -19,13 +19,15 @@ const User = ({ userName, fullName, profilePic }) => {
                         className='rounded-full w-16 flex mr-3'
                         src={profilePic}
                         alt={`${userName}'s profile pic`}
-                        onError={(e) => {
-                            e.target.src = DEFAULT_IMAGE_PATH;
-                        }}
+                        onError={
+                            (e) => {
+                                e.target.src = DEFAULT_IMAGE_PATH;
+                            }
+                        }
                     />
                 </div>
                 <div className='col-span-3'>
-                    <p className='font-sm text-sm'>
+                    <p className='font-medium text-sm'>
                         {userName}
                     </p>
                     <p className='font-bold text-gray-base text-[9px]'>

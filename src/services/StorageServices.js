@@ -1,7 +1,7 @@
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from 'react';
 
-import { db, doc, storage, updateDoc } from '../lib/FirebaseConfig';
+import { db, doc, storage, updateDoc, serverTimestamp } from '../lib/FirebaseConfig';
 
 export async function getProfileURL(file, uploaderUID) { // 
     const [progress, setProgress] = (0);
@@ -18,14 +18,15 @@ export async function getProfileURL(file, uploaderUID) { //
         ); // Shows upload progress =================================================================
         console.log(prog);
         setProgress(prog);
-    }, (err) => console.log('error occurred during uploading: ', err),
+    }, (err) => console.log('error occurred during uploading:try again! ', err),
         async () => {
             await getDownloadURL(uploadTask.snapshot.ref)
                 .then(url => {
                     console.log(url);
                     imageURL = url;
                     updateDoc(docRef, {
-                        profilePic: url // Save the profile Pic URL in the database
+                        profilePic: url
+                        // Save the profile Pic URL in the database
                     });
                 });
         }
@@ -34,7 +35,7 @@ export async function getProfileURL(file, uploaderUID) { //
 };
 
 
-async function uploadUserPosts(files, userId) {
-    const storageRef = ref(storage, `posts/${userId}`);
-    console.log(storageRef);
+async function uploadPost(files, userId) {
+    const storageRef = ref(storage, `posts/${userId}/${serverTimestamp()}`);
+
 }

@@ -45,13 +45,11 @@ const SignUp = () => {
                                 userName: userName.toLowerCase(),
                                 fullName: fullName.toLowerCase(),
                                 email: email,
-                                profilePic: DEFAULT_IMAGE_PATH,
                                 followers: [],
                                 following: [],
                                 dateCreated: Date.now(),
                                 timestamp: serverTimestamp(),
-                                profilePic: selectedImage
-
+                                profilePic: selectedImage !== null ? selectedImage : DEFAULT_IMAGE_PATH
                             })
                                 .then((data) => {
                                     navigate(ROUTES.DASHBOARD);
