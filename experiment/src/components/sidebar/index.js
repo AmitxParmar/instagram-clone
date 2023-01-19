@@ -11,8 +11,8 @@ export default function Sidebar() {
 
     //get user from firestore not auth
 
-    return userName && (
-        <div className="container w-fit px-11 relative row-span-2  h-fit text-white py-4 capitalize z-50 bg-black-hard">
+    return (
+        <div className="relative xs:hidden xs:w-0 row-span-2 h-fit w-fit text-white py-4  capitalize z-50">
             <User userName={userName} fullName={fullName} profilePic={profilePic} />
             <Suggestions userId={userId} following={following} loggedInUserDocId={docId} />
             <Footer />

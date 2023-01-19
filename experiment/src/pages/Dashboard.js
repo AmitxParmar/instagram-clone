@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 
 import Header from '../components/Header';
 import Sidebar from '../components/sidebar';
-import Stories from '../components/story/Stories';
+import Story from '../components/story';
 import Timeline from '../components/Timeline';
 import FirestoreContext from '../context/LoggedInUser';
 import { useAuth } from '../hooks/AuthContext';
 import useUser from '../hooks/useUser';
-import SidebarDesktop from '../components/aside/SidebarDesktop';
+
 const Dashboard = () => {
 
     const { user } = useAuth();
@@ -22,15 +22,18 @@ const Dashboard = () => {
 
     return userData && (
         <FirestoreContext.Provider value={{ userData, setActiveUser }}>
-            <SidebarDesktop userName={userData?.userName} profilePic={userData?.profilePic} />
-            <div className="container justify-between bg-black-hard">
-                <div className='border border-white float-right grid  grid-cols-2 gap-5 pl-10 max-w-screen-lg'>
-                    <div className='max-w-fit'>
-                        <Stories />
+            <Header />
+            <div className="container bg-black-hard ">
+                <div className='mx-auto float-right grid justify-between  grid-cols-2 gap-5 pl-10 max-w-screen-lg'>
+                    <div className='container max-w-fit'>
+                        <Story />
                         <Timeline />
                     </div>
                     <Sidebar />
                 </div>
+                {/*  <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg"> */}
+
+                {/*  </div> */}
             </div>
         </FirestoreContext.Provider >
     );

@@ -1,0 +1,1 @@
+export const DEFAULT_IMAGE_PATH = 'https://firebasestorage.googleapis.com/v0/b/instagram-clone-94434.appspot.com/o/defaultProfilePic%2Fdefault.png?alt=media&token=d869391f-b92f-4607-a902-8a7203b2a815';
