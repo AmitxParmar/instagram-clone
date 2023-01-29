@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      // allow users to update their own document
+     allow update: if (request.resource.data.diff(resource.data).affectedKeys()
+     .hasOnly(['following', 'followers', 'profilePic'])); 
+
+      // allow logged in users to read and create
+      allow read, create: if request.auth != null;
+    }
+    
+    // allow user to modify collections nested under their own document
+    match /users/{userId}/{document=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+    match /photos/{userId} {
+      // allow users to update their own document
+      allow update: if (request.resource.data.diff(resource.data).affectedKeys()
+     .hasOnly(['comments','likes', "imageSrc"])); 
+      
+
+      // allow logged in users to read and create
+      allow read, create: if request.auth != null;
+    }
+    
+    // allow user to modify collections nested under their own document
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

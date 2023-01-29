@@ -27,7 +27,7 @@ const Profile = () => {
     }, [userName, navigate]);
 
     return user && (
-        <div className="bg-gray-background capitalize border-black-faded">
+        <div className="bg-black-light  capitalize border-white">
             <Header />
             <div className="mx-auto py-6 max-w-screen-lg">
                 <UserProfile user={user} />

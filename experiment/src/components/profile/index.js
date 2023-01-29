@@ -27,7 +27,7 @@ export default function Profile({ user }) {
     }, [user.userName, user]);
 
     return (
-        <div className='bg-black-light h-screen w-100'>
+        <div className='bg-black-light h-screen w-0'>
             <Header
                 photosCount={photosCollection ? photosCollection.length : 0}
                 profile={profile}

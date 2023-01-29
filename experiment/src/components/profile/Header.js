@@ -89,11 +89,11 @@ export default function Header({
     /* <=========================||<<[Header]>>||===========================> */
 
     return (
-        <div className=" grid grid-cols-3 gap-4 justify-between max-w-screen-lg">
+        <div className="bg-black-light grid grid-cols-3 gap-4 justify-between max-w-screen-lg">
             <div className="container flex justify-center items-center">
                 {profileUserName ? (!activeBtnFollow ? (
                     <form id='profile-picture' method='POST'>
-                        <label for='profile-pic'>
+                        <label htmlFor='profile-pic'>
                             <img
                                 className="rounded-full h-40 w-40 flex hover:blur-sm cursor-pointer"
                                 alt={`${fullName} profile picture`}

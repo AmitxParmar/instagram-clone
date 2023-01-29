@@ -16,9 +16,9 @@ const Stories = ({ userData }) => {
     }, []);
 
     return (
-        <div className="container border border-gray-base">
+        <div className="container">
             <div
-                className="flex space-x-2 relative bg-black-hard items-center justify-center rounded-sm overflow-x-scroll scrollbar-thin scrollbar-hide"
+                className="flex space-x-2 relative bg-black-hard items-center justify-center rounded-sm overflow-x-scroll scrollbar-hide"
             >
                 {userData && (
                     <Story img={userData?.ProfilePic} username={userData?.UserName} />

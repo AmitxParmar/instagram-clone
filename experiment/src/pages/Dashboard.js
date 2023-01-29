@@ -23,7 +23,7 @@ const Dashboard = () => {
     return userData && (
         <FirestoreContext.Provider value={{ userData, setActiveUser }}>
             <Header />
-            <div className="container bg-black-hard ">
+            <div className="container bg-black-hard">
                 <div className='mx-auto float-right grid justify-between  grid-cols-2 gap-5 pl-10 max-w-screen-lg'>
                     <div className='container max-w-fit'>
                         <Story />

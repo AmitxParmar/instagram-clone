@@ -156,7 +156,7 @@ const SignUp = () => {
                             onChange={({ target }) => setPassword(target.value)}
                             value={password}
                         />
-                        <label for="empty-for-now" className='container border-gray-primary text-sm bg-gray-base'>
+                        <label htmlFor="empty-for-now" className='container border-gray-primary text-sm bg-gray-base'>
                             Upload Profile Pic
                         </label>
                         <input

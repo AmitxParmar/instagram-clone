@@ -24,7 +24,7 @@ const Header = () => {
   };
 
   return (
-    <header className="h-16 bg-black-hard border-b border-gray-primary mb-auto">
+    <header className="container border border-red-primary w-full h-16 bg-black-hard border-b mb-auto">
       <div className="container mx-auto max-w-screen-lg h-full">
         <div className="flex justify-between h-full">
           <div className="text-gray-base text-center flex items-center align-items cursor-pointer">

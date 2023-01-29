@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
+import ProtectedRoute from './helpers/ProtectedRoutes'
 import ReactLoader from './components/Loader';
 import * as ROUTES from './constants/Routes';
 import { AuthContextProvider } from './hooks/AuthContext';
@@ -13,7 +13,6 @@ const Dashboard = lazy(() => import('./pages/Dashboard.js'));
 const Profile = lazy(() => import('./pages/Profile.js'));
 
 const App = () => {
-
     return (
         <AuthContextProvider>
             <Router>
@@ -22,13 +21,19 @@ const App = () => {
                         <Route path="*" element={<NotFound />} />
                         <Route path={ROUTES.LOGIN} element={<Login />} />
                         <Route path={ROUTES.SIGN_UP} element={<SignUp />} />
-                        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+                        <Route
+                            path={ROUTES.DASHBOARD}
+                            element={
+                                <ProtectedRoute>
+                                    <Dashboard />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route path={ROUTES.PROFILE} element={<Profile />} />
                     </Routes>
                 </Suspense>
             </Router>
         </AuthContextProvider>
-
     );
 };
 

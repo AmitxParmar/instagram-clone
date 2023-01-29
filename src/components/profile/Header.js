@@ -89,105 +89,107 @@ export default function Header({
     /* <=========================||<<[Header]>>||===========================> */
 
     return (
-        <div className="grid grid-cols-3 gap-4 justify-between max-w-screen-lg">
-            <div className="container flex justify-center items-center">
-                {profileUserName ? (!activeBtnFollow ? (
-                    <form id='profile-picture' method='POST'>
-                        <label for='profile-pic'>
-                            <img
-                                className="rounded-full h-40 w-40 flex hover:blur-sm cursor-pointer"
-                                alt={`${fullName} profile picture`}
-                                src={profilePic}
-                                onError={(e) => {
-                                    e.target.src = DEFAULT_IMAGE_PATH;
-                                }}
+        <div className='h-fit py-8 border-b border-gray-base w-full text-white antialiased container'>
+            <div className="grid grid-cols-3 gap-4 justify-between max-w-screen-lg">
+                <div className="container flex justify-center items-center">
+                    {profileUserName ? (!activeBtnFollow ? (
+                        <form id='profile-picture' method='POST'>
+                            <label htmlFor='profile-pic'>
+                                <img
+                                    className="rounded-full h-40 w-40 flex hover:blur-sm cursor-pointer"
+                                    alt={`${fullName} profile picture`}
+                                    src={profilePic}
+                                    onError={(e) => {
+                                        e.target.src = DEFAULT_IMAGE_PATH;
+                                    }}
+                                />
+                                <input type="file" name='profilePic' id="profile-pic" className='hidden' />
+                            </label>
+                        </form>
+                    ) : (
+                        <img
+                            className="rounded-full h-40 w-40 flex"
+                            alt={`${fullName} profile picture`}
+                            src={profilePic}
+                            onError={(e) => {
+                                e.target.src = DEFAULT_IMAGE_PATH;
+                            }}
+                        />)
+                    ) : (
+                        <Skeleton circle height={150} width={150} count={1} />)}
+                </div>
+                <div className="flex items-center justify-center flex-col">
+                    <div className="container flex items-center">
+                        <p className="text-2xl mr-4">{profileUserName}</p>
+                        {activeBtnFollow && isFollowingProfile === undefined ? (
+                            <Skeleton count={1} width={80} height={32} />
+                        ) : (
+                            activeBtnFollow && (
+                                <button
+                                    className="bg-blue-medium font-bold text-sm rounded text-white w-20 h-8"
+                                    type="button"
+                                    onClick={handleToggleFollow}
+                                    onKeyDown={(event) => {
+                                        if (event.key === 'Enter') {
+                                            handleToggleFollow();
+                                        }
+                                    }}
+                                >
+                                    {isFollowingProfile ? 'Unfollow' : 'Follow'}
+                                </button>
+                            )
+                        )}
+                    </div>
+                    <div className="container text-sm flex mt-4">
+                        {!followers || !following ? (
+                            <Skeleton count={1} width={677} height={24} />
+                        ) : (
+                            <>
+                                <p className="mr-10">
+                                    <span className="font-bold">
+                                        {photosCount}
+                                    </span> photos
+                                </p>
+                                <p className="mr-10">
+                                    <span className="font-bold">{followerCount}</span>
+                                    {` `}
+                                    {followerCount === 1 ? `follower` : `followers`}
+                                </p>
+                                <p className="mr-10">
+                                    <span className="font-bold">{following?.length}</span> following
+                                </p>
+                            </>
+                        )}
+                    </div>
+
+                    <div className="container font-serif  text-gray-base mt-4">
+                        <p className="font-medium">{!fullName ? <Skeleton count={1} height={24} /> : fullName}</p>
+                    </div>
+
+                    {/* |========|| [Bio Edit Function] ||=======| */}
+
+                    {isEditing && !activeBtnFollow ? (
+                        <form onSubmit={handleBioSubmit} method='POST' className='container flex flex-row p-2 relative' >
+                            <input
+                                aria-label="Update Your Bio..."
+                                autoComplete="off"
+                                className="text-sm border-none focus:outline-none w-full"
+                                type="text"
+                                name="edit-bio"
+                                placeholder="Update Your Bio..."
+                                onChange={({ target }) => setBio(target.value)}
+                                ref={bioRef}
                             />
-                            <input type="file" name='profilePic' id="profile-pic" className='hidden' />
-                        </label>
-                    </form>
-                ) : (
-                    <img
-                        className="rounded-full h-40 w-40 flex"
-                        alt={`${fullName} profile picture`}
-                        src={profilePic}
-                        onError={(e) => {
-                            e.target.src = DEFAULT_IMAGE_PATH;
-                        }}
-                    />)
-                ) : (
-                    <Skeleton circle height={150} width={150} count={1} />)}
-            </div>
-            <div className="flex items-center justify-center flex-col">
-                <div className="container flex items-center">
-                    <p className="text-2xl mr-4">{profileUserName}</p>
-                    {activeBtnFollow && isFollowingProfile === undefined ? (
-                        <Skeleton count={1} width={80} height={32} />
+                            <button onClick={handleBioSubmit} type='submit' className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Update Bio </button>
+                        </form>
                     ) : (
-                        activeBtnFollow && (
-                            <button
-                                className="bg-blue-medium font-bold text-sm rounded text-white w-20 h-8"
-                                type="button"
-                                onClick={handleToggleFollow}
-                                onKeyDown={(event) => {
-                                    if (event.key === 'Enter') {
-                                        handleToggleFollow();
-                                    }
-                                }}
-                            >
-                                {isFollowingProfile ? 'Unfollow' : 'Follow'}
-                            </button>
-                        )
-                    )}
+                        <div className='container'>
+                            <p className='font-bold font-mono text-xs '>{instaBio}</p>
+                            {!activeBtnFollow && (<p onClick={() => setIsEditing(true)} className='text-xs cursor-pointer uppercase text-gray-base'>
+                                edit bio
+                            </p>)}
+                        </div>)}
                 </div>
-                <div className="container text-sm flex mt-4">
-                    {!followers || !following ? (
-                        <Skeleton count={1} width={677} height={24} />
-                    ) : (
-                        <>
-                            <p className="mr-10">
-                                <span className="font-bold">
-                                    {photosCount}
-                                </span> photos
-                            </p>
-                            <p className="mr-10">
-                                <span className="font-bold">{followerCount}</span>
-                                {` `}
-                                {followerCount === 1 ? `follower` : `followers`}
-                            </p>
-                            <p className="mr-10">
-                                <span className="font-bold">{following?.length}</span> following
-                            </p>
-                        </>
-                    )}
-                </div>
-
-                <div className="container font-serif  text-gray-base mt-4">
-                    <p className="font-medium">{!fullName ? <Skeleton count={1} height={24} /> : fullName}</p>
-                </div>
-
-                {/* |========|| [Bio Edit Function] ||=======| */}
-
-                {isEditing && !activeBtnFollow ? (
-                    <form onSubmit={handleBioSubmit} method='POST' className='container flex flex-row p-2 relative' >
-                        <input
-                            aria-label="Update Your Bio..."
-                            autoComplete="off"
-                            className="text-sm border-none focus:outline-none w-full"
-                            type="text"
-                            name="edit-bio"
-                            placeholder="Update Your Bio..."
-                            onChange={({ target }) => setBio(target.value)}
-                            ref={bioRef}
-                        />
-                        <button onClick={handleBioSubmit} type='submit' className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Update Bio </button>
-                    </form>
-                ) : (
-                    <div className='container'>
-                        <p className='font-bold font-mono text-xs '>{instaBio}</p>
-                        {!activeBtnFollow && (<p onClick={() => setIsEditing(true)} className='text-xs cursor-pointer uppercase text-gray-base'>
-                            edit bio
-                        </p>)}
-                    </div>)}
             </div>
         </div>
     );

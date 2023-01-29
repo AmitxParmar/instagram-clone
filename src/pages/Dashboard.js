@@ -16,6 +16,7 @@ const Dashboard = () => {
 
     const { userData, setActiveUser } = useUser(user.uid);
     console.log("🚀 ~ file: Dashboard.js:16 ~ Dashboard ~ userData", userData);
+
     useEffect(() => {
         document.title = "Dashboard";
     }, []);
@@ -23,8 +24,8 @@ const Dashboard = () => {
     return userData && (
         <FirestoreContext.Provider value={{ userData, setActiveUser }}>
             <SidebarDesktop userName={userData?.userName} profilePic={userData?.profilePic} />
-            <div className="container justify-between bg-black-hard">
-                <div className='border border-white float-right grid  grid-cols-2 gap-5 pl-10 max-w-screen-lg'>
+            <div className="container float-right h-full bg-black-faded">
+                <div className='float-right grid grid-cols-2 gap-5 pl-10 max-w-screen-lg'>
                     <div className='max-w-fit'>
                         <Stories />
                         <Timeline />

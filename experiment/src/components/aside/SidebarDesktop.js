@@ -1,14 +1,13 @@
 import React from 'react';
 import SidebarRow from './SidebarRow';
 import More from './More';
-import * as ROUTES from "../../constants/Routes"
 
 import { Link } from 'react-router-dom';
 function SidebarDesktop({ profilePic, userName }) {
 
 
     return (
-        <div className='z-10 text-white hidden md:flex flex-col md:w-[72px] xl:w-[244px] 3xl:w-[335px] px-3 pt-2 pb-5 fixed top-0 left-0 h-screen border-r border-[#dbdbdb] bg-black-hard'>
+        <div className='z-10 text-white hidden md:flex flex-col md:w-[72px] xl:w-[244px] 3xl:w-[335px] px-3 pt-2 pb-5 fixed top-0 left-0 h-screen border-r border-gray-base/25 bg-black-hard/25'>
             <div className='hidden xl:inline-flex px-3 pt-[25px] pb-4 mt-[4px]'>
                 <a href='/'>
                     <p className='font-sans text-2xl opacity-90'>IInstaClone</p>

@@ -2,27 +2,27 @@ import { useContext, useEffect, useState } from 'react';
 
 import UserContext from '../context/User';
 import {
-    app,
-    auth,
-    createUserWithEmailAndPassword,
-    db,
-    onAuthStateChanged,
-    signInWithEmailAndPassword,
-    signOut,
-    updateProfile,
+  app,
+  auth,
+  createUserWithEmailAndPassword,
+  db,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
 } from '../lib/FirebaseConfig';
 
 // importing firebase functions and initialized database and authentication from the same file decreases complexity.
 export const AuthContextProvider = ({ children }) => {
+
   // state storage currently logged user's object in state.
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("authUser")));
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
 
   //main signup function takes email and password from the user and returns signed in user's object containing email, displayName and some other information.
   const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
 
   // NOTE: sign up and adding the particular user's doc in database. and also search how to add custom id to the document.
-
   const setDisplayName = (name) => {
     updateProfile(auth.currentUser, {
       displayName: name,
@@ -30,20 +30,23 @@ export const AuthContextProvider = ({ children }) => {
       console.log(error.message);
     });
   };
+
   // firebase login main function
   const login = (email, password) =>
     signInWithEmailAndPassword(auth, email, password);
   // firebase main function logouts the current user
+
   const logout = () => signOut(auth);
   // set the current user depending on current user using auth provider function of firebase
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        setIsAuthenticated(true);
-        localStorage.setItem("authUser", JSON.stringify({ ...currentUser, isAuthenticated: true }));
+        localStorage.setItem("authUser", JSON.stringify({ ...currentUser }));
         console.log(
           "LocalStorage Saved! currentUserData return by onAuthStateChanged " /* + JSON.stringify(currentUser) */
         );
+        setAuthLoading(true);
         setUser(currentUser);
         console.log(`set user success`);
       } else {
@@ -64,7 +67,7 @@ export const AuthContextProvider = ({ children }) => {
   return (
     <UserContext.Provider
       value={{
-        isAuthenticated,
+        authLoading,
         createUser,
         user,
         setUser,

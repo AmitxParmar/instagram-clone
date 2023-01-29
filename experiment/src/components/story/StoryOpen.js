@@ -21,7 +21,7 @@ const StoryOpen = ({ showStory, exitStory }) => {
                         alt="story"
                     />
                     <div className="absolute bottom-0 text-white border rounded-full p-5 w-full m-3">
-                        <label for="send-story-msg"></label>
+                        <label htmlFor="send-story-msg"></label>
                         <input className='' type="text" id="send-story-msg" />{" "}
                     </div>
                 </div>

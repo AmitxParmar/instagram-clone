@@ -26,7 +26,7 @@ const User = ({ userName, fullName, profilePic }) => {
                         }
                     />
                 </div>
-                <div className=' flex flex-wrap'>
+                <div className='flex flex-wrap'>
                     <p className='font-bold text-sm'>
                         {userName}
                     </p>
