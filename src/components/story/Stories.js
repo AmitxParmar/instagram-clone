@@ -23,7 +23,6 @@ const Stories = ({ userData }) => {
                 {userData && (
                     <Story img={userData?.ProfilePic} username={userData?.UserName} />
                 )}
-
                 {suggestions.map((profile) => (
                     <Story
                         key={profile.id}
