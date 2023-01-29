@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const Story = ({ img, userName }) => {
+const Story = ({ userName }) => {
     return (
         <div>
             <img
@@ -9,7 +9,7 @@ const Story = ({ img, userName }) => {
         cursor-pointer hover:scale-110 
         transition-transform
         duration-200 ease-out"
-                src={img}
+                src={`https://picsum.photos/200/300?random=${Math.random()}`}
                 alt="story"
             />
             <p className="text-xs w-14 truncate text-center">{userName}</p>

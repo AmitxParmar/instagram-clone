@@ -1,4 +1,3 @@
-import { faker } from "@faker-js/faker";
 import React, { useEffect, useState } from "react";
 import Story from "./Story";
 

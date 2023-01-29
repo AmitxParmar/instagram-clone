@@ -1,15 +1,13 @@
-import { faker } from "@faker-js/faker";
 import React, { useEffect, useState } from "react";
 import Story from "./Story";
 
 const Stories = ({ userData }) => {
     const [suggestions, setSuggestions] = useState([]);
+    const userName = ['amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar', 'amitxparmar']
 
     useEffect(() => {
         const suggestions = [...Array(20)].map((_, i) => ({
-            userId: faker.datatype.uuid(),
-            username: faker.internet.userName(),
-            avatar: faker.image.avatar(),
+            username: userName[i],
             id: i,
         }));
         setSuggestions(suggestions);

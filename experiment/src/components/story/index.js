@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import StoryOpen from './StoryOpen';
 import UserStory from './UserStory';
 
-export default function Story() {
+export default function Story__() {
 
     const arr = new Array(30).fill(30);
 
