@@ -173,14 +173,14 @@ export default function Header({
                             <input
                                 aria-label="Update Your Bio..."
                                 autoComplete="off"
-                                className="text-sm border-none focus:outline-none w-full"
+                                className="text-sm bg-black-hard border-none focus:outline-none w-full"
                                 type="text"
                                 name="edit-bio"
                                 placeholder="Update Your Bio..."
                                 onChange={({ target }) => setBio(target.value)}
                                 ref={bioRef}
                             />
-                            <button onClick={handleBioSubmit} type='submit' className={`text-sm font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Update Bio </button>
+                            <button onClick={handleBioSubmit} type='submit' className={`text-xs font-bold text-blue-medium ${!bio && 'opacity-25'}`} > Update Bio </button>
                         </form>
                     ) : (
                         <div className='container'>

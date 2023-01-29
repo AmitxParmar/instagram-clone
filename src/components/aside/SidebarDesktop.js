@@ -1,7 +1,6 @@
 import React from 'react';
 import SidebarRow from './SidebarRow';
 import More from './More';
-import * as ROUTES from "../../constants/Routes"
 
 import { Link } from 'react-router-dom';
 function SidebarDesktop({ profilePic, userName }) {
